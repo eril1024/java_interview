@@ -1,0 +1,137 @@
+﻿1.결합방향과 우선순위에 대하여 설명하시오.
+한 문장에서 우선순위가 높을 시 연산에서 순서가 뒤에있더라도 먼저 연산하게 된다.
+결합뱡향은 같은 우선순위에 놓인 연산자들 중 어떤 것 부터 먼저 하는 지를 나타내는 것이다.
+
+2.1 초과 100 미만인가? 를 코딩을 하게 되면?
+&&연사자를 사용해 num이 1초과 하는 조건과 100 미만인 조건을 건다.
+num = 10;
+boolean b1= num>1 && num<100;
+
+3.2의 배수 또는 3의 배수? 를 코딩을 하게 되면?
+n의 배수는 n으로 나눌시 나머지는 0이 됨은로 나머지가 0이되는 조건식을 사용하면되고 "또는" 이기 때문에 ||연산자를 사용한다.
+num = 10;
+boolean b1 = (num%2)==0 || (num%3)==0;
+
+4. && 와  || 설명하시오.
+&&은 '그리고,and'이라는 뜻으로 양 쪽 조건 둘다 만족해야한다.
+||은 '또는,or'이라는 뜻으로 두 조건중 한 조건만 만족하면 된다.
+
+
+5. 아래의 프린트 결과를 예측해 보고, 코딩후 결과를 확인하시오
+class SCE {
+    public static void main(String[] args) {
+        int num1 = 0; 
+        int num2 = 0;
+        boolean result;
+        
+        result = ((num1 += 10) < 0) && ((num2 += 10) > 0);
+        System.out.println("result = " + result);
+        System.out.println("num1 = " + num1);
+        System.out.println("num2 = " + num2 + '\n');
+		
+        result = ((num1 += 10) > 0) || ((num2 += 10) > 0);
+        System.out.println("result = " + result);
+        System.out.println("num1 = " + num1);
+        System.out.println("num2 = " + num2);
+    }
+}
+결과는 num1은 20이고 num2는 0이다
+첫번째 result에서 앞의 조건이 false이므로 뒤에 조건은 연산하지 않고 false를 반환한다.그러므로 num1만 +=10을 하게된다.
+두번째 result에서 앞의 조건이 true이므로 뒤에 조건을 연산하지 않는다.그래서 num1만 +=10이 되므로 num1은 20, num2는 0이된다.
+
+
+6.아래가 에러가 나는 이유를 설명하고, 수정하시오
+short num
+short num = -num 
+num에 -를 붙혀 연산시 그냥 부호만 반대로 되는 것이 아닌 -1*num이라는 연산을 하므로 -1의 자료형인 int를 따라가게 된다.
+그러므로 -num앞에 (short)를 붙혀 명시적 형변환을 해주어야한다.
+
+7.전위증가 연산자와 후위증가 연산자의 차이는?
+전위증가 연산자는 ++num,--num의 형태로 먼저 증가를 시키고 후에 연산을 하는 것이다.
+후위증가 연산자는 num++,num--의 형태로 먼저 다른 연산을 진행하고 후에 증가 시키는 것을 뜻한다.
+
+8.아래의 비트연산자 4가지를 설명하시오.
+- &,^,|,~
+&는 and연산을 하는 것으로 두 비트가 모두 1일 경우 값은 1이다.
+|는 or연산을 하는 것으로 두 비트 중 하나 만 1이여도 값은 1이된다.
+^는 xor연산을 하는 것으로 두 비트가 같으면 0 다르면 1이된다.
+~는 비트를 반전시키는 것으로 0이면 1 , 1이면 0이된다.
+
+9.아래의 쉬프트 연산자에 대하여 설명하시오.
+<< , >>
+<<는 비트열을 왼쪽으로 이동시키는 것으로 00000010 << 3 은 왼쪽으로 3칸 이동시키라는 뜻이다. 이동에 따른 빈공간은 0으로 채우게 되면 
+값은 00010000이 된다.
+>>는 비트열을 오른쪽으로 이동시키는 것으로 11100100 << 2은 오른쪽으로 2칸 이동시키라는 뜻이다. 이동에 따른 빈공간은
+음수의 경우 1, 양수의 경우 0으로 채우게되므로 값은 11111001이된다.
+
+
+10.전위연산자와 후위연산자에 대하여 설명하시오.
+
+11.아래의 출력값을 예측하시오.
+class AssignSteResult {
+    public static void main(String[] args) {
+        int num1 = 10, num2 = 20, num3 = 30;
+        num1 = num2 = num3;
+
+        /*
+          = 연산자는 결합 방향이 오른쪽에서 왼쪽으로 진행된다. 
+          따라서 위의 문장은 다음과 같다. 
+          num1 = (num2 = num3);        
+        */
+        
+        System.out.println(num1);	
+        System.out.println(num2);
+        System.out.println(num3);
+    }
+}
+세 수 모두 30이 된다. =연산자는 오른쪽에서 왼쪽으로 진행하므로 첫 번째 연산이 num2 = num3로 num2가 30이 되고
+두 번째 연산이 num1 = num2로 num1도 30이 된다.
+그로므로 세수 모두 30이다.
+
+12.아래의 출력값을 예측하시오.
+class SCE {
+    public static void main(String[] args) {
+        int num1 = 0; 
+        int num2 = 0;
+        boolean result;
+
+        num1 += 10;
+        num2 += 10;        
+        result = (num1 < 0) && (num2 > 0);
+
+        System.out.println("result = " + result);
+        System.out.println("num1 = " + num1);
+        System.out.println("num2 = " + num2 + '\n');
+		
+        num1 += 10;
+        num2 += 10;        
+        result = (num1 > 0) || (num2 > 0);
+
+        System.out.println("result = " + result);
+        System.out.println("num1 = " + num1);
+        System.out.println("num2 = " + num2);
+    }
+}
+false 
+10 
+0
+true
+20
+0
+
+13.아래의 출력값을 예측하시오.
+class AddNum {
+    public static void main(String[] args) {
+        int result = 3 + 6;
+        System.out.println("3 + 6 = " + result);
+        
+        result += 9;
+        System.out.println("3 + 6 + 9 = " + result);
+        
+        result += 12;
+        System.out.println("3 + 6 + 9 + 12 = " + result);
+    }
+}
+9
+18
+30
