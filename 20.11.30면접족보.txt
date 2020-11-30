@@ -1,0 +1,214 @@
+﻿1.반복문 3가지의 무한루프 만드는 방법은?
+ -while문과 do~while문에는 조건에 true를 사용하고
+  for문은 ( ; ; )안에 식들을 모두 빈공간으로 둠으로써 무한루프를 사용할 수 있다.
+
+2.구구단 출력을 하시오.
+ public class algolism {
+	 public static void main(String[] args) {
+	 	 for(int i = 2;i<=9;i++) {
+		 	 for(int j=1;j<=9;j++) {
+		 		 System.out.println(i+" x "+j+" = "+i*j);
+			 }
+			 System.out.println();
+		 }
+	 }
+ }
+
+3.짝수단만 찍으시오
+ public class algolism {
+	public static void main(String[] args) {
+		for(int i = 2;i<=9;i++) {
+			if(i%2 !=0)
+				continue;
+			
+			for(int j=1;j<=9;j++) {
+				System.out.println(i+" x "+j+" = "+i*j);
+			}
+			System.out.println();
+		}
+	}
+ } 
+
+4.3의 배수인 단만 출력하시오.
+ public class algolism {
+	public static void main(String[] args) {
+		for(int i = 2;i<=9;i++) {
+			if(i%3 !=0)
+				continue;
+			
+			for(int j=1;j<=9;j++) {
+				System.out.println(i+" x "+j+" = "+i*j);
+			}
+			System.out.println();
+		}
+	}
+ }
+5.아래의 Star를 찍으시오.
+
+*****
+*****
+*****
+*****
+*****
+public class algolism {
+	public static void main(String[] args) {
+		for(int i = 1;i<=5;i++) {
+			for(int j = 1; j<=5;j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+}
+		
+*
+**
+***
+****
+*****
+public class algolism {
+	public static void main(String[] args) {
+		for(int i = 1;i<=5;i++) {
+			for(int j = 1; j<=i;j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+}
+		
+*****
+****
+***
+**
+*
+public class algolism {
+	public static void main(String[] args) {
+		for(int i = 5;i>=1;i--) {
+			for(int j = 1; j<=i;j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+}
+
+    *
+   **
+  ***
+ ****
+*****		
+public class algolism {
+	public static void main(String[] args) {
+		for(int i = 5;i>=1;i--) {
+			for(int j = 1; j<=5;j++) {
+				if(j<i)
+					System.out.print(" ");
+				else
+					System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+}
+
+   *
+  ***
+ *****
+*******
+public class algolism {
+	public static void main(String[] args) {
+		for(int i = 1; i<=4; i++) {
+			for(int j = 1; j<=7;j++) {
+				if(j<=4-i||j>=4+i)
+					System.out.print(" ");
+				else
+					System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+}
+
+6.함수는 어떻게 알아 볼수 있는가?
+ - 함수는 이름은 보통 소문자로 시작하며 이름 옆에 ()가 있는데 ()안에는 매개변수 값을 넣는 함수도 있고 아닌 함수도 있다.
+
+7.함수는 어떻게 만드는가?
+ - 함수는 public static void main(String[] args){}처럼 public과 static등 여러가지 정의어를 사용해서 정의해주고 void는 반환값이
+   없다는 뜻으로 int,double,String 등 반환값의 자료형을 쓰면 된다.main은 함수 이름으로 소문자로 시작하는 것이 관례이며
+   ()안에는 매개변수값을 선언하면 된다(없으면 안써도됨)
+   그리고 {} 안에는 함수의 식을 써주면 되고 반환값이 있는 함수는 return을 사용해 반환해주면 된다.
+
+8.함수는 어떻게 써먹는가?
+ - 함수를 만들었다면 main함수나 다른 함수내에서도 이 함수가 사용가능하다. 함수 이름을 적어주고 ()안에는 매개변수값을 넣어 줌으로써
+   사용할 수 있다.
+
+9.아래의 함수를 만드시오.
+함수이름: starPrint
+매개변수: type 1개
+기능: 매개변수에 3를 전달하면 3층 석탑, 5를 전달하면 5층석탑
+예) 3전달시 3층석탑
+*
+**
+***
+5전달시 5층석탑
+*
+**
+***
+****
+*****
+public class algolism {
+	static void starPrint(int num) {
+		for(int i =1;i<=num;i++) {
+			for(int j =1;j<=i;j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+	public static void main(String[] args) {
+		starPrint(5);
+	}
+}
+ 
+10.아래의 함수를 만들고,해당함수를 호출하여 확인하시오. 
+함수이름: getGrade()
+매개변수: double type 1개
+리턴: 수 우 미 양 가 중 하나의 char 타입
+public class algolism {
+	static char getGrade(double score) {
+		if(score>=90)
+			return '수';
+		else if(score>=80)
+			return '우';
+		else if(score>=70)
+			return '미';
+		else if(score>=60)
+			return '양';
+		else 
+			return '가';
+	}
+	public static void main(String[] args) {
+		System.out.println(getGrade(76.5));
+	}
+}	
+
+11.매개변수 하나를 받아 원의 넓이를 리턴하는 함수를 작성하시오.
+public class algolism {
+	static double circle(double r) {
+		return 3.14*r*r;
+	}
+	public static void main(String[] args) {
+		System.out.println(circle(5));
+	}
+}	
+
+12.매개변수 두개를 받아, 사각형의 넓이를 리턴하는 함수를 작성하시오.
+public class algolism {
+	static double square(double r) {
+		return r*r;
+	}
+	public static void main(String[] args) {
+		System.out.println(square(5));
+	}
+}	
