@@ -1,0 +1,186 @@
+﻿1.아래가 의도하지 않은 결과를 나타내는 이유를 설명하시오.
+char ch = '가';
+System.out.println(ch + '\n')
+ - '\n'에서 \n을""로 감싸야 문자열로 인식하는데 ''로 감싸서 아스키코드값으로 인식해버렸다.
+   그래서 두개를 더하면 아스키코드값이 나온다
+
+2.변수의 scope 는?
+ - 같은 이름의 변수를 같은영역내에서는 만들 수 없다.
+   함수안에서의 변수는 함수내에서만 쓸 수있고 클래스안에서의 변수는 클래스 내의 모든 함수에서 사용가능하다.
+
+3.지역변수?
+ - 지역변수란 특정 영역내에서 벗어나면 사용할 수 없는 변수를 말한다.
+   함수의 매개변수와 for문에서의 선언, if문에서의 선언 등이 있고 함수가 끝나거나 반복문에서 나오면 소멸된다.
+
+4.펙토리얼을 구하는 재귀 함수를 만드시오.
+public class algolism {
+	public static void main(String[] args) {
+		System.out.println(Func(5));
+	}
+	
+	public static int Func(int n) {
+		if(n==1) {
+			return 1;
+		}
+		return n*Func(n-1);
+	}
+}	
+
+5.클래스의 구성요소는 무엇인가?
+ - 클래스의 속성을 정의하는 멤버 변수
+ - 클래스의 데이터를 조작할 수 있는 메서드
+
+6.원의 넓이는 구하는 프로그램을 아래와 같이 작성하시오.
+-원클래스를 만들것
+-메인 메소드를 가진 다른 클래스에서 원 객체를 생성할것
+public class Circle {
+	final double PI = 3.14;
+	int radius;
+	
+	public int getRadius() {
+		return radius;
+	}
+	
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+	
+	public double getArea() {
+		return radius*radius*3.14;
+	}
+	
+}
+
+public class RecMain {
+	
+	public static void main(String[] args) {
+		
+		Circle c1 = new Circle();
+		c1.setRadius(6);   
+		System.out.println("원의 넓이는: "+ c1.getArea());
+		
+	}
+}
+
+7.객체란 무엇인가?
+ - 자신의 속성이 있는 사물이나 개념 등을 말한다.
+
+8. 아래의 클래스에 대하여, 메모리 그림을 그리시오.
+Rectangle rec = new Rectangle();
+ 
+public class Rectangle {
+	int height;
+	int width;
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	
+	public int getArea() {
+		return width * height;
+	}
+	
+}
+
+rec ----->Memory
+[1000]   [int height      ]
+         [int width       ]
+         [int getHeight() ]
+         [void setHeight()]
+         [int getWidth()  ]
+         [void setWidth() ]
+         [int getArea()   ]
+          크기 = 36byte
+
+9.클래스와 객체의 차이는 무엇인가?
+ - 자바에서 추상적인 객체를 만들기 위해서는 틀이 필요하다.
+   클래스가 그 틀이 되어준다. 클래스에 메서드와 변수를 설정해 객체의 속성을 구현해준다.
+
+10.아래의 프로그램을 작성하시오.
+ -1 부터 num 까지 합을 구하는 class 를 작성하도록 하시오.
+public class algolism {
+	
+	public static void main(String[] args) {
+		int num = 5;
+		int sum = 0;
+		for(int i = -1; i<=num; i++) {
+			sum += i;
+		}
+		System.out.println(sum);
+	}
+}	
+
+11.아래의 클래스를 작성하시오.
+StraPrint strPrint = new StarPrint()
+
+strPrint.printTriangle(3); 
+System.out.println();
+strPrint.printReverseTriangle(3); 
+===============================
+*
+**
+***
+
+***
+**
+*
+
+public class StarPrint {
+	
+	public static void printTriangle(int num) {
+		for(int i = 1; i<=num;i++) {
+			for(int j=1;j<=i;j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+	public static void printReverseTriangle(int num) {
+		for(int i=1;i<=num;i++) {
+			for(int j=num;j>=i;j--) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+
+}
+
+12.아래의 프로그래밍을 작성하시오.
+
+Gugudan gugudan = new Gugudan();
+gugudan.printGugu(10);  //1단부터 10단까지 출력
+gugudan.printGugu(20);  //1단부터 20단까지 출력
+public class Gugudan {
+	public static void printGugu(int dan) {
+		for(int i =1; i<=dan;i++) {
+			for(int j =1; j<=9;j++) {
+				System.out.println(i+" x "+j+" = "+ i*j);
+			}
+			System.out.println();
+		}
+	}
+}
+
+13. 아래의 BankAccount 객체에 대하여 그림을 그리시오.
+   BankAccount ref1 = new BankAccount();
+   BankAccount ref2 = ref1;
+
+ref2  = ref1
+[3000]   [3000]
+
+
+
+ 
