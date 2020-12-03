@@ -1,0 +1,188 @@
+﻿1.set classpath 에 대하여 설명하시오.
+ - 자바 가상 머신의 클래스 탐색 경로이다.
+ - 환경변수에 변수 이름은 classpath, 변수 값으로 경로를 지정하면 시스템 전체에서 사용가능하다.(좋은 방법은 아니다)
+
+2.절대경로와 상대경로에 대하여 설명하시오.
+ - 절대 경로는 기준 없이 주소를 모두 적는 것이고
+ - 상대 경로는 현재 위치를 기준으로 주소를 적는 것이다
+   ./(현재위치)
+   ../(상위 위치로)
+
+3. . 과 .. 의 차이는?
+ - 상대 경로에서 .은 현재위치를 나타내고 ../ 상위 위치를 나타낸다.
+
+4.package의 용도는?
+ - 패키지는 용도에 따른 클래스를 분류해서 묶어주는 역할을 한다.
+ - 같은 패키지 내에서는 같은 이름의 클래스를 사용할 수 없다.
+
+5.package 의 기본적인 명명법(이름짓는법)은?
+ - 패키지는 인터넷 도메인 이름의 역순으로 이름을 짓는다.(www는 제외)
+ - 마지막에는 클래스를 정의한 주체 또는 팀 이름을 추가한다.
+   ex)com.bitcamp.a4class 
+
+6.정보은닉에 대하여 설명하시오.
+ - 정보은닉이란 클래스 외부에서 클래스의 변수나 메서드 들을 조작할 수 없게 하는 것이다.
+
+7.접근제한자 4가지 종류에 대하여 설명하시오.
+ - private : 같은 클래스에서만 접근가능
+   default : 같은 패키지내에서만 접근가능
+   protected : 같은 패키지와 다른 패키지의 클래스를 상속 받은 클래스에서는 접근가능
+   public : 모든영역에서 접근가능
+   클래스는 public과 default만 사용가능하고 메서드와 변수는 4개다 사용가능하다.
+
+9.class 에서 붙일수 있는 접근 제한자 2개를 설명하고, 해당 접근제한자의 사용 목적은?
+ - pulbic : 어디서든 인스턴스 생성이 가능
+ - default : 동일 패키지내에서만 인스턴스 생성가능
+
+10.가위, 바위, 보 게임 작성하시오.
+public class RCP {
+	private int num;
+	private int num1;
+	private String write;
+	private String write1;
+	
+	public RCP(String write,String write1) {
+		this.write = write;
+		this.write1 = write1;
+	}
+
+	public void select() {
+		
+		switch (write) {
+		case "가위":
+			num = 0;
+			break;
+		case "바위":
+			num = 1;
+			break;
+		case "보":
+			num = 2;
+			break;
+		}
+		switch (write1) {
+		case "가위":
+			num1 = 0;
+			break;
+		case "바위":
+			num1 = 1;
+			break;
+		case "보":
+			num1 = 2;
+			break;
+		}
+		System.out.println("player1 = " + write);
+		System.out.println("player2 = " + write1);
+		play();
+	}
+
+	public void play() {
+		
+		if (num == 0 && num1 == 1) {
+			System.out.println("player2 승");
+		}
+		if (num == 0 && num1 == 2) {
+			System.out.println("player1 승");
+		}
+		if (num == 1 && num1 == 0) {
+			System.out.println("player1 승");
+		}
+		if (num == 1 && num1 == 2) {
+			System.out.println("player2 승");
+		}
+		if (num == 2 && num1 == 0) {
+			System.out.println("player2 승");
+		}
+		if (num == 2 && num1 == 1) {
+			System.out.println("player1 승");
+		}
+		if (num == num1) {
+			System.out.println("무승부 입니다.");
+		}
+	}
+
+}
+import java.util.Scanner;
+
+public class MainTest {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String yesNo;
+		while (true) {
+			System.out.println("가위 바위 보를 입력해주세요!");
+			RCP r = new RCP(sc.next(), sc.next());
+			r.select();
+			System.out.println("다시하시겠습니까?(Y/N)");
+			yesNo = sc.next();
+			if (yesNo.equals("Y") || yesNo.equals("y")) {
+				continue;
+			} else {
+				System.out.println("프로그램을 종료합니다.");
+				sc.close();
+				break;
+			}
+		}
+
+	}
+}
+
+11.아래와 같이 계산기 프로그램을 작성하시오.
+==================================
+10 + 9   // 입력을 한칸씩 띄우도록 할것
+10 + 9 = 19
+계속하시겠습니까?
+10 - 7
+10 - 7 = 3
+계속하시겠습니까?
+
+public class Calculator {
+	int num1;
+	String cal;
+	int num2;
+	int hab;
+
+	public Calculator(int num1, String cal, int num2) {
+		this.num1 = num1;
+		this.cal = cal;
+		this.num2 = num2;
+	}
+
+	public void calculate() {
+		switch (cal) {
+		case "+":
+			hab = num1 + num2;
+			break;
+		case "-":
+			hab = num1 - num2;
+			break;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
+			break;
+		}
+		System.out.println(num1 + " " + cal + " " + num2 + " =  " + hab);
+	}
+
+}
+import java.util.Scanner;
+
+public class MainCalculator {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String yesNo;
+		while (true) {
+			Calculator c1 = new Calculator(sc.nextInt(), sc.next(), sc.nextInt());
+			c1.calculate();
+			System.out.println("계속하시겠습니까?");
+			yesNo = sc.next();
+			if (yesNo.equals("y") || yesNo.equals("Y")) {
+				continue;
+			} else {
+				System.out.println("프로그램을 종료합니다.");
+				sc.close();
+				break;
+			}
+		}
+
+	}
+}
+
+
