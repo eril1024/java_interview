@@ -1,0 +1,162 @@
+﻿1.인스턴스 함수안에 스태틱 변수와 함수가 올수 있는 이유는?
+ - static함수와 변수는 메모리 호출시 바로 생성되기때문에 인스턴스 함수가 호출될 시 사용할 수 있다.
+
+2.메소드 오버로딩이란?
+ - 같은 이름의 메서드를 여러개 만드는 것이다.
+ - 똑같은 이름과 매개변수를 가지게 할 수 없고
+ - 매개변수의 갯수가 다르거나 자료형이 다른 것들로 오버로딩가능하다.
+
+3.메소드 오버로딩을 적용한 대표적인 함수는?
+ - println()으로 매개변수의 자료형에 따라 다르게 인식할 수 있도록 적용했다.
+
+4.this 함수에 대하여 설명하시오.
+ - 생성자에서 매개변수와 현재 클래스의 인스턴스가 같은 이름을 가지면 인스턴스 변수에 this.을 사용해 
+   매개변수와 구분지을 수 있다.
+
+5.this란 무엇인가?
+ - this현재 클래스의 인스턴스를 가리키는 함수다.
+
+6.스트링 객체를 생성하는 2가지 방법은?
+ 1.""을 사용해 객체를 생성한다.
+ 2.new String()을 사용해 객체를 생성한다.
+
+아래의 결과를 예측하고,이유를 설명하시오.
+String str1 = "Simple String";
+String str2 = "Simple String";
+   
+      String str3 = new String("Simple String");
+      String str4 = new String("Simple String");
+   
+      if(str1 == str2)
+         System.out.println("str1과 str2는 동일 인스턴스 참조");
+      else
+         System.out.println("str1과 str2는 다른 인스턴스 참조");
+   
+      if(str3 == str4)
+         System.out.println("str3과 str4는 동일 인스턴스 참조");
+      else
+         System.out.println("str3과 str4는 다른 인스턴스 참조");
+첫번째 꺼는 동일 인스턴스 참조가 나오고 두번째는 다른 인스턴스 참조가 나온다.
+첫번째에서 ""을 이용해 같은 문장의 String객체를 생성할 경우 자바에서 자동으로 하나의 객체만 만들어 메모리사용을 줄인다.
+그러므로 같은 str1과 str2는 같은 주소를 가지므로 동일 인스턴스 참조이다.
+두번째에서 str3와 str4각각 다른 주소의 객체를 생성하므로 다른 인스턴스 참조이다.
+
+7.imutable 에 대하여 설명하시오.
+ - String,boolean,integer등은 불변하는 클래스이다
+   만약 String temp= "hello"를 참조하게 하고 
+   다시 String temp= "bye"를 넣게 되면 "hello"가 사라지고 "bye"가 temp에 들어가는 것이 아니라
+   temp의 참조가 "bye"로 바뀌는 것이다. 다시 말해 참조만 바뀌고 "hello"는 어딘가에 존재한다는 것이다.
+
+8. 사용자로부터 받은 문자열(영문으로)에서 자음과 모음 개수를 계산하는 프로그램을 작성하라.
+import java.util.Scanner;
+
+public class Test {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String s1 = sc.next();
+		int count = 0;
+
+		for (int i = 0; i < s1.length(); i++) {
+			if (s1.charAt(i) == 'a' || s1.charAt(i) == 'e' || s1.charAt(i) == 'i' || s1.charAt(i) == 'o'
+					|| s1.charAt(i) == 'u') {
+				count++;
+			} else if (s1.charAt(i) == 'A' || s1.charAt(i) == 'E' || s1.charAt(i) == 'I' || s1.charAt(i) == 'O'
+					|| s1.charAt(i) == 'U') {
+				count++;
+			}
+		}
+		System.out.println("모음 : " + count + "개 자음 : " + (s1.length() - count) + "개");
+
+	}
+}
+
+9. 사용자로부터 키를 입력받아서 표준 체중을 계산한 후에 사용자의 체중과 비교하여 저체중인지, 표준인지, 과체중인지를 판단하는 프로그램을 작성하라. 표준 체중 계산식은 다음을 사용하라.
+표준체중 = ( 키 - 100 ) * 0.9
+import java.util.Scanner;
+
+public class Person {
+	double ki;
+	double weight;
+	double normalWeight;
+
+	public Person(double weight, double ki) {
+		this.weight = weight;
+		this.ki = ki;
+	}
+
+	void calculate() {
+		normalWeight = (ki - 100) * 0.9;
+		if (normalWeight > weight) {
+			System.out.println("저체중 입니다.");
+		} else if (normalWeight < weight) {
+			System.out.println("과체중 입니다.");
+		} else {
+			System.out.println("표준체중 입니다.");
+		}
+
+	}
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("몸무게와 키를 입력하세요 : ");
+		double weight = sc.nextDouble();
+		double ki = sc.nextDouble();
+
+		Person p1 = new Person(weight, ki);
+		p1.calculate();
+	}
+
+}
+
+10. 2와 100 사이에 있는 모든 소수(prime number)를 찾는 프로그램을 작성하라. 주어진 정수 k를 2부터 k-1까지의 숫자로 나누어서 나머지가 0인 것이 하나라도 있으면 소수가 아니다.
+
+public class PrimeNumber {
+
+	public static void main(String[] args) {
+		int count = 0;
+		for (int i = 2; i <= 100; i++) {
+			int prime = 0;
+			for (int j = 2; j <= i - 1; j++) {
+				if (i % j == 0) {
+					prime++;
+				}
+			}
+			if (prime == 0) {
+				System.out.println("소수 : " + i);
+				count++;
+			}
+		}
+
+		System.out.println("총 개수 : " + count);
+	}
+
+}
+
+11.사용자에게 받은 문자열을 역순으로 화면에 출력하는 프로그램을 작성하시오.
+입력:abcde
+출력:edcba
+import java.util.Scanner;
+
+public class Reverse {
+	String write;
+	String rewrite;
+
+	public Reverse(String write) {
+		this.write = write;
+	}
+
+	void play() {
+		for (int i = write.length() - 1; i >= 0; i--) {
+			System.out.print(write.charAt(i));
+		}
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Reverse r1 = new Reverse(sc.next());
+		r1.play();
+	}
+
+}
