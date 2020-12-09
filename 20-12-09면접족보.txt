@@ -1,0 +1,376 @@
+﻿1.배열의 디폴트 초기화 방법은?
+ - 생성시 int[] ar = new int[]{1,2,3}으로 초기화 할 수 있고
+ - 생성시 int[] ar = {1, 2, 3}으로 초기화 하는 방법이 있다.
+
+2.arraycopy 함수의 사용 방법은?
+ - 배열.arraycopy(복사할 배열,복사시작위치,복사대상배열,붙여넣을 위치, 길이)이다.
+
+3.public static void main(String[] args) 에서 String[] args 의 사용법과 용도는?
+ - 함수 실행시 필요한 파라미터값이 있으면 사용하라는 뜻이다.
+ - Box클래스에서 사용한다면 터미널에서 javac 로 Box클래스를 파일을 생성 후
+ - java Box apple cow 이렇게 Box뒤에 원하는 파라미터값을 적어주면 된다.
+
+4.enhenced for 문에 대하여 설명하시오.
+ - 배열의 값들을 출력하거나 사용할 때 반복문을 이용하는 것 보다 enhacned for문을 사용하면 더 간단하게 할 수 있다.
+ - int[] ar = {1,2,3} integer형 배열 ar을 하나 씩 출력한다면
+   for( int e : ar ){
+   	System.out.println(e);
+   }
+
+5.로또 프로그램을 작성하시오.
+public class Lotto {
+
+	private int[] numbers = new int[6];
+
+	private void rand() {
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = (int) (Math.random() * 45 + 1);
+			for (int j = 0; j < i; j++) {
+				if (numbers[j] == numbers[i]) {
+					i--;
+					break;
+				}
+			}
+		}
+	}
+
+	private void print() {
+		System.out.print("로또번호 : ");
+
+		for (int a : numbers) {
+			System.out.print(a + " ");
+		}
+	}
+
+	public void getResult() {
+		rand();
+		print();
+	}
+
+	public static void main(String[] args) {
+		Lotto l1 = new Lotto();
+		l1.getResult();
+	}
+}
+
+6.아래의 프로그램을 참고 하여 Box class 를 짜시오.
+	public static void main(String[] args) {
+		Box[] ar = new Box[5];
+		ar[0] = new Box(101, "Coffee");
+		ar[1] = new Box(202, "Computer");
+		ar[2] = new Box(303, "Apple");
+		ar[3] = new Box(404, "Dress");
+		ar[4] = new Box(505, "Fairy-tale book");
+
+		for (Box e : ar) {
+			if (e.getBoxNum() == 505)
+				System.out.println(e);
+		}
+
+	}
+import java.util.Arrays;
+
+public class Box {
+	private int boxNum;
+	private String name;
+
+	Box(int boxNum, String name) {
+		this.boxNum = boxNum;
+		this.name = name;
+	}
+
+	public String toString() {
+		return name;
+	}
+
+	public int getBoxNum() {
+		return boxNum;
+	}
+
+	public void setBoxNum(int boxNum) {
+		this.boxNum = boxNum;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static void main(String[] args) {
+		Box[] ar = new Box[5];
+		ar[0] = new Box(101, "Coffee");
+		ar[1] = new Box(202, "Computer");
+		ar[2] = new Box(303, "Apple");
+		ar[3] = new Box(404, "Dress");
+		ar[4] = new Box(505, "Fairy-tale book");
+
+		for (Box e : ar) {
+			if (e.getBoxNum() == 505)
+				System.out.println(e);
+		}
+	}
+}
+
+7.양의 정수 10개를 랜덤생성하여, 배열에 저장하고, 배열에 있는 정수 중에서 3의 배수만 출력해보자.
+public class Three {
+	private int[] randNums = new int[10];
+
+	private void rand() {
+		for (int i = 0; i < randNums.length; i++) {
+			randNums[i] = (int) (Math.random() * 1000) + 1;
+		}
+	}
+
+	private void print() {
+		for (int e : randNums) {
+			if (e % 3 == 0) {
+				System.out.print(e + " ");
+			}
+		}
+	}
+
+	public void getResult() {
+		rand();
+		print();
+
+	}
+
+	public static void main(String[] args) {
+		Three t1 = new Three();
+		t1.getResult();
+	}
+
+}
+
+8.아래의 프로그램을 짜시오.(필수)
+ - 5개의 숫자를 랜덤으로 받아 배열로 저장
+ - 5개의 숫자중 가장 큰값을 출력
+public class Rand {
+	private int[] randNums = new int[5];
+	private int max = 0;
+
+	private void rand() {
+		for (int i = 0; i < randNums.length; i++) {
+			randNums[i] = (int) (Math.random() * 1000) + 1;
+		}
+	}
+
+	private void print() {
+		for (int i = 0; i < randNums.length; i++) {
+			if (max < randNums[i]) {
+				max = randNums[i];
+			}
+		}
+		for (int e : randNums) {
+			System.out.print(e + " ");
+		}
+		System.out.println("\n최고값은 : " + max);
+	}
+
+	public void getResult() {
+		rand();
+		print();
+
+	}
+
+	public static void main(String[] args) {
+		Rand r1 = new Rand();
+		r1.getResult();
+	}
+
+}
+
+9.아래의 프로그램을 짜시오.
+ -5개의 숫자를 랜덤으로 받아 배열로 저장
+ -5개의 숫자를 내림차순으로 정렬하여 출력
+public class Desc {
+	private int[] randNums = new int[5];
+	private int change = 0;
+	private int count;
+
+	private void rand() {
+		for (int i = 0; i < randNums.length; i++) {
+			randNums[i] = (int) (Math.random() * 1000) + 1;
+		}
+	}
+
+	private void print() {
+		while (true) {
+			count = 0;
+			for (int i = 1; i < randNums.length; i++) {
+				if (randNums[i] > randNums[i - 1]) {
+					change = randNums[i - 1];
+					randNums[i - 1] = randNums[i];
+					randNums[i] = change;
+					count++;
+				}
+			}
+			if (count == 0) {
+				break;
+			}
+		}
+		for (int e : randNums) {
+			System.out.print(e + " ");
+		}
+	}
+
+	public void getResult() {
+		rand();
+		print();
+	}
+
+	public static void main(String[] args) {
+		Desc d1 = new Desc();
+		d1.getResult();
+	}
+}
+
+10. char 배열을 생성하여, 알파벳 A~Z까지 대입 후, 출력해보자. 알파벳은 26개.
+public class Char {
+	private char[] ar = new char[26];
+	private int asc = 65;
+
+	private void input() {
+		for (int i = 0; i < ar.length; i++) {
+			ar[i] = (char) asc;
+			asc++;
+		}
+	}
+
+	private void print() {
+		for (char a : ar) {
+			System.out.print(a + " ");
+		}
+	}
+
+	public void getResult() {
+		input();
+		print();
+	}
+
+	public static void main(String[] args) {
+		Char c = new Char();
+		c.getResult();
+	}
+}
+
+10.배열과 반복문을 이용하여 프로그램을 하시오. 키보드에서 정수로 된 돈의 액수를 입력받아 오만 원권, 만 원권, 천 원권, 500원짜리 동전, 100원짜리 동전, 50원짜리 동전, 10원짜리 동전, 1원짜리 동전이 각 몇 개로 변환되는지 예시와 같이 출력하라. 이때 반드시 다음 배열을 이용하고 반복문으로 작성하라.
+
+int[] unit = {50000, 10000, 1000, 500, 100, 50, 10, 1}; // 환산할 돈의 종류
+
+금액을 입력하시오 >> 65123
+50000 원 짜리 : 1개 
+10000 원 짜리 : 1개 
+1000 원 짜리 : 5개 
+500 원 짜리 : 0개 
+100 원 짜리 : 1개 
+50 원 짜리 : 0개 
+10 원 짜리 : 2개 
+1 원 짜리 : 3개 
+import java.util.Scanner;
+
+public class Money {
+	private int[] unit = { 50000, 10000, 1000, 500, 100, 50, 10, 1 };
+	private int money;
+
+	private void input() {
+		Scanner sc = new Scanner(System.in);
+		money = sc.nextInt();
+	}
+
+	private void calcurate() {
+		for (int i = 0; i < unit.length; i++) {
+			System.out.println(unit[i] + "원 짜리 : " + money / unit[i] + "개");
+			money = money % unit[i];
+		}
+	}
+
+	public void getResult() {
+		input();
+		calcurate();
+	}
+
+	public static void main(String[] args) {
+		Money m1 = new Money();
+		m1.getResult();
+	}
+}
+
+12.정수를 10개 저장하는 배열을 만들고 1에서 10까지 범위의 정수를 랜덤하게 생성하여 배열에 저장하라. 그리고 배열에 든 숫자들과 평균을 출력하라.(필수)
+
+랜덤한 정수들 : 3 6 3 6 1 3 8 9 6 9 
+평균은 5.4
+public class Average {
+	private int[] randNums = new int[10];
+	private double total = 0;
+
+	private void rand() {
+		for (int i = 0; i < randNums.length; i++) {
+			randNums[i] = (int) (Math.random() * 10) + 1;
+		}
+	}
+
+	private void print() {
+		for (int e : randNums) {
+			total += e;
+		}
+		System.out.println("평균은 : " + total / randNums.length);
+	}
+
+	public void getResult() {
+		rand();
+		print();
+
+	}
+
+	public static void main(String[] args) {
+		Average a1 = new Average();
+		a1.getResult();
+	}
+
+}
+
+13.4 x 4의 2차원 배열을 만들고 이곳에 1에서 10까지 범위의 정수를 랜덤하게 생성하여 정수 16개를 배열에 저장하고, 2차원 배열을 화면에 출력하라.(필수)
+
+8 6 1 1 
+7 3 6 9 
+4 5 3 7 
+9 6 3 1 
+public class Array2 {
+	private int[][] randNums = new int[4][4];
+
+	private void rand() {
+		for (int i = 0; i < randNums.length; i++) {
+			for (int j = 0; j < randNums[i].length; j++) {
+				randNums[i][j] = (int) (Math.random() * 10) + 1;
+			}
+		}
+	}
+
+	private void print() {
+		for(int i =0; i<randNums.length;i++) {
+			for(int j =0; j<randNums[i].length;j++) {
+				System.out.print(randNums[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+
+	
+	public void getResult() {
+		rand();
+		print();
+	}
+
+	public static void main(String[] args) {
+		Array2 r1 = new Array2();
+		r1.getResult();
+	}
+}
+
+14.아래를 메모리 구조로 표현하시오.
+int[][] arr = new int[3][4]
+ 
