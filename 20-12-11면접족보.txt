@@ -1,0 +1,224 @@
+﻿1.is a 관계와 has a 관계에 대하여 설명하시오.
+ - is a 관계는 "~은 ~ 이다"라는 상속의 뜻으로 "사과는 과일이다"는 사과는 과일을 상속받았다는 것이다.
+ - has a 관계는 "~가 ~을 소유한다"라는 포함의 뜻으로 "나는 사과를 가지고 있다"는 내가 사과를 포함하고 있다라는 뜻이다.
+
+2.다형성이란 무엇인가?
+ - 다형성이란 "여러가지 형태로 존재한다"라는 뜻으로 자바에서 한 타입의 참조 변수가 여러 타입의 객체를 참조할 수 있다는 것이다.
+   부모 클래스는 상속 받은 클래스들의 타입변수로 객체를 생성할 수 있다.(역은 되지 않는다.)
+ - 타입은 자신이 알고 있는 메서드만 호출가능하다.(실행되는 것은 객체기준)
+   *자식은 부모보다 커질수 있으나 작아질 수는 없다.
+
+3.아래가 되지 않는 이유에 대하여 메모리 그림으로
+설명하시오.MobilePhone(부모) SmartPhone(자식)
+SmartPhone s = new MobilePhone();
+
+4.메소드 오버라이딩 이란?
+ - 상속 관계에서 부모 클래스의 메서드를 자식클래스에 맞게 변경 하는 것이다.
+ - 함수 이름과 매개변수 리턴값은 동일해야하고 함수 구현부만 변경하면 된다.
+ - 변수는 오버라이딩 대상이 아니다.
+ - 상속 관계에서만 가능하다.
+
+5.갬블링 게임을 만들어보자. 두 사람이 게임을 진행한다. 이들의 이름을 키보드로 입력 받으며 
+각 사람은 Person 클래스로 작성하라. 그러므로 프로그램에는 2개의 Person 객체가 생성되어야 한다. 
+두 사람은 번갈아 가면서 게임을 진행하는데 각 사람이 자기 차례에서 <Enter> 키를 입력하면, 
+3개의 난수가 발생되고 이 숫자가 모두 같으면 승자가 되고 게임이 끝난다. 
+난수의 범위를 너무 크게 잡으면 3개의 숫자가 일치하게 나올 가능성이 적기 때문에 숫자의 범위는 1~3까지로 한다.
+
+1번째 선수 이름>>수희
+2번째 선수 이름>>연수
+[수희]:
+	3  1  1  아쉽군요!
+[연수]:
+	3  1  3  아쉽군요!
+[수희]:
+	2  2  1  아쉽군요!
+[연수]:
+	1  1  2  아쉽군요!
+[수희]:
+	3  3  3  수희님이 이겼습니다!
+public class Person {
+	private String name;
+
+	Person(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+}
+import java.util.Scanner;
+
+public class Game {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Person[] persons = new Person[2];
+		int[] randNums = new int[3];
+		int k = 0;
+		int count = 0;
+
+		for (int i = 0; i < persons.length; i++) {
+			System.out.println((i + 1) + "번째 선수 이름>>");
+			persons[i] = new Person(sc.next());
+		}
+		sc.nextLine();
+		while (true) {
+			System.out.print("[" + persons[k].getName() + "] : ");
+			sc.nextLine();
+			for (int i = 0; i < randNums.length; i++) {
+				randNums[i] = (int) (Math.random() * 3 + 1);
+				System.out.print(randNums[i] + " ");
+			}
+
+			for (int i = 1; i < randNums.length; i++) {
+				if (randNums[i - 1] == randNums[i]) {
+					count++;
+				}
+			}
+			if (count == 2) {
+				System.out.println(persons[k].getName() + "님이 이겼습니다.");
+				return;
+			} else {
+				System.out.println("아쉽군요!");
+			}
+
+			count = 0;
+			k++;
+			if (k == 2) {
+				k = 0;
+			}
+
+		}
+	}
+}
+
+6.문제 10의 갬블링 게임을 n명이 하도록 수정하라. 실행 예시와 같이 게임에 참여하는 선수의 수를 입력받고 각 선수의 이름을 입력받도록 수정하라.
+
+겜블링 게임에 참여할 선수 숫자>>3
+1번째 선수 이름>>황
+2번째 선수 이름>>이
+3번째 선수 이름>>김
+[황]:
+	2  3  3  아쉽군요!
+[이]:
+	1  2  2  아쉽군요!
+[김]:
+	2  2  3  아쉽군요!
+[황]:
+	3  2  2  아쉽군요!
+[이]:
+	1  1  3  아쉽군요!
+[김]:
+	2  2  1  아쉽군요!
+[황]:
+	2  2  2  황님이 이겼습니다!
+import java.util.Scanner;
+
+public class Game {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("겜블링 게임에 참여할 선수 숫자>>");
+		Person[] persons = new Person[sc.nextInt()];
+		int[] randNums = new int[3];
+		int k = 0;
+		int count = 0;
+
+		for (int i = 0; i < persons.length; i++) {
+			System.out.println((i + 1) + "번째 선수 이름>>");
+			persons[i] = new Person(sc.next());
+		}
+		sc.nextLine();
+		while (true) {
+			System.out.print("[" + persons[k].getName() + "] : ");
+			sc.nextLine();
+			for (int i = 0; i < randNums.length; i++) {
+				randNums[i] = (int) (Math.random() * 3 + 1);
+				System.out.print(randNums[i] + " ");
+			}
+
+			for (int i = 1; i < randNums.length; i++) {
+				if (randNums[i - 1] == randNums[i]) {
+					count++;
+				}
+			}
+			if (count == 2) {
+				System.out.println(persons[k].getName() + "님이 이겼습니다!");
+				return;
+			} else {
+				System.out.println("아쉽군요!");
+			}
+
+			count = 0;
+			k++;
+			if (k == persons.length) {
+				k = 0;
+			}
+
+		}
+	}
+}
+
+7.다음을 만족하는 클래스 Employee를 작성하시오
+(8번문제부터는 이것과 관련된 문제입니다).
+
+- 클래스 Employee(직원)은 클래스 Regular(정규직)와 Temporary(비정규직)의 상위 클래스
+
+- 필드: 이름, 나이, 주소, 부서, 월급 정보를 필드로 선언
+
+- 생성자 : 이름, 나이, 주소, 부서를 지정하는 생성자 정의
+
+-메소드 printInfo() : 인자는 없고 자신의 필드 이름, 나이, 주소, 부서를 출력
+public class Employee {
+	private String name;
+	private int age;
+	private String address;
+	private String department;
+	private int salary;
+
+	Employee(String name, int age, String address, String department) {
+		this.name = name;
+		this.age = age;
+		this.address = address;
+		this.department = department;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void printInfo() {
+		System.out.println("이름 : " + name + "\n나이 : " + age + "\n주소 : " + address + "\n부서 : " + department);
+	}
+}
+
+8. 다음을 만족하는 클래스 Regular를 작성하시오.
+
+- 클래스 Regular는 위에서 구현된 클래스 Employee의 하위 클래스
+
+- 생성자 : 이름, 나이, 주소, 부서를 지정하는 상위 생성자 호출
+
+- Setter : 월급 정보 필드를 지정
+
+- 메소드 printInfo() : 인자는 없고 "정규직"이라는 정보와 월급을 출력
+public class Regular extends Employee {
+
+	Regular(String name, int age, String address, String department) {
+		super(name, age, address, department);
+
+	}
+
+	public void setSalary(int salary) {
+		super.setSalary(salary);
+	}
+
+	@Override
+	public void printInfo() {
+		super.printInfo();
+		System.out.println("정규직 월급 : " + super.getSalary());
+	}
+}
