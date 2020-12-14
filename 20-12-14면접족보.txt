@@ -1,0 +1,206 @@
+﻿1.Object 클래스에 대하여 설명하시오.
+ - object클래스는 모든 클래스의 최상위 클래스이다.
+ - 클래스 생성시 extends 클래스를 적지 않으면 컴파일러가 자동으로 object클래스를 extends한다.
+ 
+2.아래와 같이 출력되는 이유를 하시오.
+
+class A {
+	 @Override
+	 public String toString() {
+		 return "이것은 A 클래스 입니다.";
+	 }
+}
+
+public class TestMain {
+	public static void main(String[] args) {
+		A a  = new A();
+		System.out.println(a);
+		
+	   }		
+}
+===============
+이것은 A 클래스 입니다.
+ - println은 object를 클래스로 받는다.object에는 기본적으로 toString이라는 함수가 있고 함수는 toString클래스의 이름을 반환한다.
+   위의 코드의 A클래스에서 toString을 오버라이드했기 때문에 오바라이드한 "이것은 A 클래스 입니다."가 출력된다.
+
+3. class 이름 및 함수 에서 final 의 의미는?
+ - 클래스에 final선언시 상속이 되지않는다.
+ - 상속한 클래스에 final함수가 있을 시 오버라이드가 되지않는다.
+
+4.연습문제 7-22 번을 푸시오.
+class Rectangle extends Shape {
+	private double width;
+	private double height;
+
+	public Rectangle(double width, double height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	@Override
+	double calcArea() {
+		return width * height;
+	}
+
+	boolean isSquare() {
+		if (width == height) {
+			return true;
+		} else
+			return false;
+	}
+
+}
+
+class Circle extends Shape {
+
+	private double r;
+
+	public Circle(double r) {
+		this.r = r;
+	}
+
+	@Override
+	double calcArea() {
+
+		return r * r * Math.PI;
+	}
+
+}
+
+5.연습문제 7-23 번을 푸시오.
+class Exercise7_23 {
+	public static double sumArea(Shape[] arr) {
+		double sum = 0;
+		for (Shape a : arr) {
+			sum += a.calcArea();
+		}
+		return sum;
+	}
+
+	public static void main(String[] args) {
+		Shape[] arr = { new Circle(5.0), new Rectangle(3, 4), new Circle(1) };
+		System.out.println("면적의 합:" + sumArea(arr));
+	}
+}
+
+6. interface 와 class 의 차이는
+ - 인터페이스는 다중상속 가능하지만 클래스 불가능하다.
+ - 인터페이스 객체 생성이 불가능하다.(참조변수는 가능하다.)
+ - 인터페이스를 상속받은 클래스는 상속받은 메서드를 구현해야한다.
+ 
+7. 다음을 프로그램 하시오.[필수]
+interface Printable { // MS가 정의하고 제공한 인터페이스
+   public void print(String doc);
+}
+ SPrinterDriver 와 LPrinterDriver를 만드시오
+======================
+
+public static void main(String[] args) {
+   String myDoc = "This is a report about...";
+   
+   // 삼성 프린터로 출력
+   Printable prn = new SPrinterDriver();
+   prn.print(myDoc);
+   System.out.println();
+
+   // LG 프린터로 출력
+   prn = new LPrinterDriver();
+   prn.print(myDoc);
+}
+================================================
+출력: From Samsung printer
+This is a report about ...
+
+From LG printer
+This is a report about ...
+==================================
+public interface Printable {
+	public void print(String doc);
+}
+
+class SPrinterDriver implements Printable {
+
+	@Override
+	public void print(String doc) {
+		System.out.println("From Samsung printer");
+		System.out.println(doc);
+	}
+
+}
+
+class LPrinterDriver implements Printable {
+
+	@Override
+	public void print(String doc) {
+		System.out.println("From LG printer");
+		System.out.println(doc);
+	}
+
+}
+
+8.@Override 에 대하여 설명하시오.
+ - 상속받은 클래스에서 오버라이드 했다는 것을 표시하기위한 어노테이션이다.
+ - 상위 클래스에 정의되지 않은 메서드에 쓰는 경우 컴파일 에러가 난다.
+
+9.interface 에 대하여 설명하시오.
+ - 클래스의 상속에서 발생하는 불편함을 줄이고 코드를 간소화하기 위해 인터페이스가 만들어졌다.
+ - 인터페이스는 상속받는 객체들의 하나의 지침서 역학을 해 상속받는 클래스들이 인터페이스의 틀에 맞춰 각각의 속성을 바꾼다.
+   이로 인해 사용자는 모든 객체들의 코드를 알 필요없이 인터페이스를 보고 각각의 속성들을 사용할 수 있는 장점이 있다.
+ - 인터페이스에서 메서드는 컴파일러가 자동으로 public과 abstract을 넣어주며 abstract키워드를 사용함으로써 상속받은
+   클래스는 반드시 이 메서드를 구현해야한다.
+ - 다중 상속이 가능하다.
+ - 객체 생성이 안된다.(참조 변수로는 사용가능하다)
+
+10.interface에 올수 있는 두가지는?
+ - public과 default만 가능하다
+ - 변수에는 public, static, final만 가능하고
+   메서드에는 public과 abstract만 가능하다.
+
+11.abstract 키워드에 대하여 설명하시오.
+ - 추상 키워드로 abstract클래스는 상속만 가능하고 abstract메서드는 구현부가 없다.
+
+12. 아래의 출력 결과가 아래와 같이 나오도록 프로그래밍 하시오.
+Object obj = new Circle(10);
+System.out.println(obj);
+=================
+출력: 넓이는 100 입니다.
+public class Circle {
+	double r;
+
+	public Circle(double r) {
+		this.r = r;
+	}
+
+	public String toString() {
+		return "넓이는 " + (r * r) + " 입니다.";
+	}
+}
+
+13. 아래의 메모리를 그리시오.
+class MobilePhone {
+    protected String number;
+    
+    public MobilePhone(String num) {
+        number = num;
+    }    
+    public void answer() {
+        System.out.println("Hi~ from " + number);
+    }
+}
+
+class SmartPhone extends MobilePhone { 
+    private String androidVer;
+    
+    public SmartPhone(String num, String ver) {
+        super(num);
+        androidVer = ver;
+    }    
+    public void playApp() {
+        System.out.println("App is running in " + androidVer);
+    }
+}
+=======================================
+	MobilePhone phone = new SmartPhone("010-555-777", "Nougat");
+    	phone.answer();    	
+    	SmartPhone s = (SmartPhone)phone;    	
+    	s.playApp();
