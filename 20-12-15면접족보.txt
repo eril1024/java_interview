@@ -1,0 +1,343 @@
+﻿1.Maker 인터페이스에 대하여 설명하시오.
+ - 아무것도 구현하지 않는 인터페이스이다
+ - 다중 상속을 이용해 같은 그룹으로 표시하기 위해 사용한다.
+
+2.추상클래스에 대하여 설명하시오.
+ - 객체를 생성할 수 없고 상속받은 클래스가 클래스를 구현하다록 하기 위한 클래스이다.
+
+3.추상클래스와 인터페이스의 차이는?
+ - 인터페이스의 메서드들은 반드시 abstract로 작성해야하지만 추상클래스는 상관없다.
+ - 인터페이스는 중복 상속이 가능하지만 추상클래스는 클래스이기 때문에 중복상속이 불가능하다.
+ - 
+4.에러와 예외의 차이는?
+ - 에러는 시스템 상의 비정상적인 문제가 발생한 것이고
+   예외는 개발자의 로직에서 발생한 문제이다.
+
+5.unchecked 와 cheked 예외의 차이는?
+ - checekd는 컴파일시 발생하는 예외이며 try/catch문으로 예외처리를 해주어야한다.
+   unchecked는 런타임시 발생하는 예외이며 try/catch문으로 예외처리하지 않아도 잘 컴파일 되지만 런타임에서 문제가 발생하는 것이다.
+
+6.예외처리 UML를 그리시오.
+
+7.사칙연산 계산기를 아래의 조건으로 짜시오.
+-interface 를 활용할것
+-예외처리 메커니즘을 적용할것.
+public interface Calculator {
+	int add(int x, int y);
+
+	int sub(int x, int y);
+
+	int div(int x, int y);
+
+	int mul(int x, int y);
+}
+
+class Calcul implements Calculator {
+	@Override
+	public int add(int x, int y) {
+		return x + y;
+	}
+
+	@Override
+	public int div(int x, int y) {
+		return x / y;
+
+	}
+
+	@Override
+	public int mul(int x, int y) {
+		return x * y;
+
+	}
+
+	@Override
+	public int sub(int x, int y) {
+		return x - y;
+
+	}
+}
+import java.util.Scanner;
+
+public class CalcMain {
+	public static void main(String[] args) {
+		Calculator c1 = new Calcul();
+		int x, y;
+		Scanner sc = new Scanner(System.in);
+		x = sc.nextInt();
+		y = sc.nextInt();
+		try {
+			System.out.println(c1.add(x, y));
+			System.out.println(c1.div(x, y));
+			System.out.println(c1.mul(x, y));
+			System.out.println(c1.sub(x, y));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+8.다음 Stack 인터페이스를 상속받아 실수를 저장하는 StringStack 클래스를 구현하라.(구현할 수 있도록 할것)
+
+interface Stack {
+   int length(); // 현재 스택에 저장된 개수 리턴
+   int capacity(); // 스택의 전체 저장 가능한 개수 리턴
+   String pop(); // 스택의 톱(top)에 실수 저장
+   boolean push(String val); // 스택의 톱(top)에 저장된 실수 리턴
+}
+그리고 다음 실행 사례와 같이 작동하도록 StackApp 클래스에 main() 메소드를 작성하라.
+
+총 스택 저장 공간의 크기 입력 >> 3
+문자열 입력 >> hello
+문자열 입력 >> sunny
+문자열 입력 >> smile
+문자열 입력 >> happy
+스택이 꽉 차서 푸시 불가!
+문자열 입력 >> 그만
+스택에 저장된 모든 문자열 팝 : smile sunny hello 
+class StringStack implements Stack {
+	Scanner sc = new Scanner(System.in);
+	String[] arr;
+	int i = -1;
+
+	public StringStack() {
+		System.out.println("총 스택 저장 공간의 크기 입력 >>");
+		arr = new String[sc.nextInt()];
+	}
+
+	@Override
+	public int length() {
+
+		return i + 1;
+
+	}
+
+	@Override
+	public int capacity() {
+		if (i == -1) {
+			return arr.length;
+		}
+		return arr.length - i - 1;
+	}
+
+	@Override
+	public String pop() {
+		String sum = "";
+		for (int i = arr.length - 1; i >= 0; i--) {
+			sum += arr[i] + " ";
+		}
+
+		return sum;
+
+	}
+
+	@Override
+	public boolean push(String val) {
+		if (i == arr.length - 1) {
+
+			return false;
+		}
+		arr[++i] = val;
+		return true;
+	}
+}
+
+import java.util.Scanner;
+
+public class StackApp {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		boolean check;
+		String val;
+		StringStack s1 = new StringStack();
+		while (true) {
+			System.out.println("문자열 입력 >>");
+			val = sc.next();
+
+			if (val.equals("그만")) {
+				System.out.print("스택에 저장된 모든 문자열 팝 : ");
+				System.out.print(s1.pop());
+				break;
+			}
+			check = s1.push(val);
+			if (check == false) {
+				System.out.println("스택이 꽉 차서 푸시 불가!");
+			}
+		}
+
+	}
+}
+9.
+철수 학생은 다음 3개의 필드와 메소드를 가진 4개의 클래스 Add, Sub, Mul, Div를 작성하려고 한다
+
+- int 타입의 a, b 필드: 2개의 피연산자
+- void setValue(int a, int b): 피연산자 값을 객체 내에 저장한다.
+- int calculate(): 클래스의 목적에 맞는 연산을 실행하고 결과를 리턴한다.
+곰곰 생각해보니, Add, Sub, Mul, Div 클래스에 공통된 필드와 메소드가 존재하므로 새로운 추상 클래스 Calc를 작성하고 Calc를 상속받아 만들면 되겠다고 생각했다. 그리고 main() 메소드에서 다음 실행 사례와 같이 2개의 정수와 연산자를 입력받은 후, Add, Sub, Mul, Div 중에서 이 연산을 처리할 수 있는 객체를 생성하고 setValue() 와 calculate()를 호출하여 그 결과 값을 화면에 출력하면 된다고 생각하였다. 철수처럼 프로그램을 작성하라.
+
+두 정수와 연산자를 입력하시오 >> 5 7 +
+interface Calc {
+
+	void setValue(int a, int b);
+
+	int calculate();
+
+}
+
+class Add implements Calc {
+	int a, b;
+
+	@Override
+	public void setValue(int a, int b) {
+		this.a = a;
+		this.b = b;
+
+	}
+
+	@Override
+	public int calculate() {
+		// TODO Auto-generated method stub
+		return a + b;
+	}
+
+}
+
+class Sub implements Calc {
+	int a, b;
+
+	@Override
+	public void setValue(int a, int b) {
+		this.a = a;
+		this.b = b;
+
+	}
+
+	@Override
+	public int calculate() {
+		// TODO Auto-generated method stub
+		return a - b;
+	}
+
+}
+
+class Mul implements Calc {
+	int a, b;
+
+	@Override
+	public void setValue(int a, int b) {
+		this.a = a;
+		this.b = b;
+
+	}
+
+	@Override
+	public int calculate() {
+		// TODO Auto-generated method stub
+		return a * b;
+	}
+
+}
+
+class Div implements Calc {
+	int a, b;
+
+	@Override
+	public void setValue(int a, int b) {
+		this.a = a;
+		this.b = b;
+
+	}
+
+	@Override
+	public int calculate() {
+		// TODO Auto-generated method stub
+		return a / b;
+	}
+
+}
+public class CalcMain {
+	public static void main(String[] args) {
+		Calc c1;
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		char cal = sc.next().charAt(0);
+		switch (cal) {
+		case '+':
+			c1 = new Add();
+			c1.setValue(a, b);
+			System.out.println("답은 : " + c1.calculate());
+			break;
+		case '-':
+			c1 = new Sub();
+			c1.setValue(a, b);
+			System.out.println("답은 : " + c1.calculate());
+			break;
+		case '*':
+			c1 = new Mul();
+			c1.setValue(a, b);
+			System.out.println("답은 : " + c1.calculate());
+			break;
+		case '/':
+			c1 = new Div();
+			c1.setValue(a, b);
+			System.out.println("답은 : " + c1.calculate());
+			break;
+		}
+
+	}
+}
+
+13.연습문제 7-22 번을 푸시오.
+class Rectangle extends Shape {
+	private double width;
+	private double height;
+
+	public Rectangle(double width, double height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	@Override
+	double calcArea() {
+		return width * height;
+	}
+
+	boolean isSquare() {
+		if (width == height) {
+			return true;
+		} else
+			return false;
+	}
+
+}
+
+class Circle extends Shape {
+
+	private double r;
+
+	public Circle(double r) {
+		this.r = r;
+	}
+
+	@Override
+	double calcArea() {
+
+		return r * r * Math.PI;
+	}
+
+}
+14.연습문제 7-23 번을 푸시오.
+class Exercise7_23 {
+	public static double sumArea(Shape[] arr) {
+		double sum = 0;
+		for (Shape a : arr) {
+			sum += a.calcArea();
+		}
+		return sum;
+	}
+
+	public static void main(String[] args) {
+		Shape[] arr = { new Circle(5.0), new Rectangle(3, 4), new Circle(1) };
+		System.out.println("면적의 합:" + sumArea(arr));
+	}
+}
