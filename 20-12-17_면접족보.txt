@@ -1,0 +1,244 @@
+﻿1.String 클래스 에서 문자열 비교시 equal을 쓰는 이유는?
+ - object클래스의 메서드인 equal은 원래는 주소값을 비교하는 메서드이지만
+   String클래스에서 문자열을 비교하는 메서드로 오버라이딩되어있다.
+
+2.shall copy, deep copy 의 차이는?
+ - 얕은 카피와 깊은 카피라는 뜻으로  
+   shall 카피는 객체안의 객체를 복사할 때 주소가 복사되지만
+   deep copy는 clone()메서드에 객체안의 객체를 복사하는 코드를 추가해 주소가 복사되는 것을 막고있다.
+
+3.금일 배운 Rectangle의 shall copy 와 deep copy 일때의 그림을 그리시오.(중요)
+
+
+4.다음 main()이 실행되면 아래 예시와 같이 출력되도록 MyPoint 클래스를 작성하라.
+public static void main(String [] args) {
+	MyPoint p = new MyPoint(3, 50);
+	MyPoint q = new MyPoint(4, 50);
+	System.out.println(p);
+	if(p.equals(q)) System.out.println("같은 점");
+	else System.out.println("다른 점");			
+}
+
+Point(3,50)
+다른점
+public class MyPoint {
+	private int x;
+	private int y;
+
+	public MyPoint(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public String toString() {
+
+		return "Point(" + x + "," + y + ")";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj.toString().equals(toString())) {
+			return true;
+		}
+		return false;
+	}
+}
+
+5.중심을 나타내는 정수 x, y와 반지름 radius 필드를 가지는 Circle 클래스를 작성하고자 한다. 생성자는 3개의 인자(x, y, raidus)를 받아 해당 필드를 초기화하고, equals() 메소드는 두 개의 Circle 객체의 중심이 같으면 같은 것으로 판별하도록 한다.
+
+public static void main(String[] args) {
+	Circle a = new Circle(2, 3, 5); // 중심 (2, 3)에 반지름 5인 원
+	Circle b = new Circle(2, 3, 30); // 중심 (2, 3)에 반지름 30인 원
+	System.out.println("원 a : " + a);
+	System.out.println("원 b : " + b);
+	if(a.equals(b))
+		System.out.println("같은 원");
+	else 
+		System.out.println("서로 다른 원");
+}
+
+원 a : Circle(2,3)반지름5
+원 b : Circle(2,3)반지름30
+같은 원
+public class Circle {
+	private int x;
+	private int y;
+	private int radius;
+
+	public Circle(int x, int y, int radius) {
+
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj.toString().substring(0, 14).equals(toString().substring(0, 14))) {
+			return true;
+		}
+		return false;
+
+	}
+
+	@Override
+	public String toString() {
+
+		return "Circle(" + x + "," + y + ")반지름" + radius;
+	}
+}
+
+6.문자열을 입력받아 한 글자씩 회전시켜 모두 출력하는 프로그램을 작성하라.(클래스로 작성할 필요없이 메인에서 직접 할것)
+
+문자열을 입력하세요. 빈칸이나 있어도 되고 영어 한글 모두 됩니다.
+I Love you
+ Love youI
+Love youI 
+ove youI L
+ve youI Lo
+e youI Lov
+ youI Love
+youI Love 
+ouI Love y
+uI Love yo
+I Love you
+[Hint] Scanner.nextLine()을 이용하면 빈칸을 포함하여 한 번에 한 줄을 읽을 수 있다.
+public class Test {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String a = sc.nextLine();
+		char[] c = a.toCharArray();
+		char[] b;
+		System.out.println();
+		for (int i = 0; i < c.length; i++) {
+			b = new char[c.length];
+			for (int j = 0; j < c.length; j++) {
+				if (j + 1 == c.length) {
+					b[j] = c[0];
+					break;
+				}
+				b[j] = c[j + 1];
+			}
+			System.out.println(b);
+			c = b;
+		}
+
+	}
+
+}
+7.래퍼 클래스란 무엇인가?
+ - 기본데이터 타입 8개를 랩으로 감싸 객체로 만들었다는 뜻으로 래퍼클래스라고 불린다.
+ - 기본형에서 맨 앞글자를 대문자로 바꾸면 된다.
+ - 
+8.auto unboxing 이란?
+ - 객체로 만든 기본형을 다시 기본형으로 바꾸는 것을 unboxing이라고 하며
+   auto unboxing은 객체를 기본형으로 바꿀 때 기본형value()함수를 사용해야 하는데 
+   코드를 적을 필요없이 자동으로 되게 만들어주는 것을 auto unboxing이라고 한다.
+
+9. 다음 조건을 만족하는 클래스 Person을 구현하여 테스트하는 프로그램을 작성하시오.(필수)
+
+- 클래스 Person은 이름을 저장하는 필드 구성
+
+- 클래스 Person은 상위 클래스 Object의 메소드 equals()를 오버라이딩하여 이름이 같으면 true를 반환하는 메소드 구현
+
+- 다음과 같은 소스로 클래스 Person을 점검
+
+Person p1 = new Person("홍길동");
+System.out.println(p1.equals(new Person("홍길동")));
+System.out.println(p1.equals(new Person("최명태")));
+public class Person {
+	private String name;
+
+	public Person(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (name.equals(obj.toString())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+
+		return name;
+	}
+
+}
+
+10. 다음 조건을 만족하는 클래스 String의 객체 이용 프로그램을 작성하여 메소드 equals()와 연산자 ==의 차이를 비교 설명하시오.(필수) 
+
+- 메소드 equals()와 비교 연산자 ==의 차이를 다음 소스로 점검
+
+String s1 = new String("java");
+String s2 = new String("java");
+String s3 = s2;
+
+System.out.println(s1 == s2);
+System.out.println(s1.equals(s2));
+System.out.println(s2 == s3);
+System.out.println(s2.equals(s3));
+
+ - String클래스에서 equals()가 오버라이딩되어 문자열을 비교하도록 되어있다.
+ - ==연산자는 문자열을 비교하는 것이 아닌 주소를 비교하는 것이다. 그래서 s1 == s2는 false지만
+   s2 == s3는 s3에 s2의 주소값을 넣었기 때문에 true가 반환된다.
+
+11. 다음 조건을 만족하도록 오늘의 정보를 출력하는 프로그램을 작성하시오.
+
+- 클래스 Calendar의 객체의 다음 메소드를 사용하며
+
+ * get(Calendar.DAY_OF_WEEK_IN_MONTH) : 달에서 요일의 횟수 반환
+ * get(Calendar.DAY_OF_WEEK) : 요일을 반환, 1이 일요일
+ * get(Calendar.WEEK_OF_MONTH) : 월의 주 횟수를 반환
+ * get(Calendar.DAY_OF_YEAR) : 해의 날짜를 반환
+ * get(Calendar.WEEK_OF_YEAR) : 해의 주 횟수를 반환
+
+- 다음과 같이 출력되도록 한다.
+
+오늘은 2012년 6월 17일 일요일입니다.
+이 달의 3번째 일요일입니다.
+이 달의 4번째 주입니다.
+이 해의 169일입니다.
+이 해의 25번째 주입니다. 
+public class Test {
+	public static void main(String[] args) {
+
+		Calendar c1 = Calendar.getInstance();
+		String dayOfWeek = null;
+
+		switch (c1.get(Calendar.DAY_OF_WEEK)) {
+		case 1:
+			dayOfWeek = "일요일";
+			break;
+		case 2:
+			dayOfWeek = "월요일";
+			break;
+		case 3:
+			dayOfWeek = "화요일";
+			break;
+		case 4:
+			dayOfWeek = "수요일";
+			break;
+		case 5:
+			dayOfWeek = "목요일";
+			break;
+		case 6:
+			dayOfWeek = "금요일";
+			break;
+		case 7:
+			dayOfWeek = "토요일";
+			break;
+		}
+
+		System.out.printf("오늘은 %d년 %d월 %d일 %s입니다.\n", c1.get(Calendar.YEAR), c1.get(Calendar.MONTH) + 1,
+				c1.get(Calendar.DATE), dayOfWeek);
+		System.out.println("이 달의 " + c1.get(Calendar.DAY_OF_WEEK_IN_MONTH) + "번째 " + dayOfWeek + "입니다.");
+		System.out.println("이 달의 " + c1.get(Calendar.WEEK_OF_MONTH) + "번째 주입니다.");
+		System.out.println("이 해의 " + c1.get(Calendar.DAY_OF_YEAR) + "일입니다.");
+		System.out.println("이 해의 " + c1.get(Calendar.WEEK_OF_YEAR) + "번째 주입니다.");
+	}
+}
