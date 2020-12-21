@@ -1,0 +1,163 @@
+﻿1.제네릭 클래스의 타입 인자 제한하는 방법과 효과는?
+: 제너릭 클래스에서 타입인자는 어떤한 것도 올 수 있기 때문에 목적에 맞지 않는 클래스타입도 올 수 있다 이를 방지하기 위해 상속을 이용해 타입인자를 제한한다.
+
+제네릭 클래스의 타입 인자 제한하기: 인스턴스 생성 시 타입 인자로 Number 또는 이를 상속하는 클래스만 올 수 있음
+ex) class Box<T extends Number> {...} => 와 같이 Number 클래스를 상속하면 기본형으로 타입을 제한-String, Apple과 같은 타입은 들어오지 못함-
+
+
+2.아래와 같이 출력값이 나오도록 프로그래밍 하시오.
+
+class DDBoxDemo {
+    public static void main(String[] args) {
+        DBox<String, Integer> box1 = new DBox<>();
+        box1.set("Apple", 25);
+
+        DBox<String, Integer> box2 = new DBox<>();
+        box2.set("Orange", 33);
+        
+        DDBox<DBox<String, Integer>, DBox<String, Integer>> ddbox = new DDBox<>();
+        ddbox.set(box1, box2);
+	
+        System.out.println(ddbox);
+    }
+}
+
+==================
+Apple & 25
+Orange & 33
+
+public class DBox<L, R> {
+	private L a;
+	private R b;
+
+	public void set(L o, R c) {
+		a = o;
+		b = c;
+	}
+
+	@Override
+	public String toString() {
+
+		return a + " & " + b;
+	}
+}
+
+class DDBox<L, R> {
+	private L a;
+	private R b;
+
+	public void set(L o, R c) {
+		a = o;
+		b = c;
+	}
+
+	@Override
+	public String toString() {
+
+		return a + "\n" + b;
+	}
+}
+
+
+3.아래와 같이 출력값이 나오도록 프로그래밍 하시오.
+
+    public static void main(String[] args) {
+        Box<Integer> box1 = new Box<>();
+        box1.set(99);
+
+        Box<Integer> box2 = new Box<>();
+        box2.set(55);
+
+        System.out.println(box1.get() + " & " + box2.get());
+        swapBox(box1, box2);
+        System.out.println(box1.get() + " & " + box2.get());
+    }
+==========
+99 & 55
+55 & 99
+public class Box<T> {
+	private T ob;
+
+	public void set(T o) {
+		ob = o;
+	}
+
+	public T get() {
+		return ob;
+	}
+}
+public static <T> void swapBox(Box<T> a, Box<T> b) {
+		Box<T> tmp = new Box<T>();
+		tmp.set(a.get());
+		a.set(b.get());
+		b.set(tmp.get());
+}
+
+4.제네릭 메소드에 대하여 설명하시오.
+: 제너릭 클래스와 마찬가지로 다양한 인자를 받을 수 있는 메소드이다.
+  public <T> void makeBox(T a, T b){}의 형태이다.
+  
+5.와일드 카드와 상한 제한, 하한 제한에 대하여 설명하시오.
+: 와일드 카드는 제너릭 메서드에서 매개변수에 T를 ?으로 대체하는 것으로
+  제너릭 메서드와 기능적으로 같지만 코드가 더 간결해지는 점이있다.
+  상한제한은 ?에 ?보다 높은 클래스가 올 수 없도록 제한하는 것이고
+  하한제한은 ?에 ?보다 낮은 클래스가 올 수 없도록 제한하는 것이다.
+
+6.아래가 에러가 나는 이유를 설명하시오.
+public static void inBox(Box<? super Toy> box, Toy n) {
+   box.set(n);   // 넣는 것! OK!
+   Toy myToy = box.get();   // 꺼내는 것! Error!
+}
+ - 와일드카드에 Toy보다 같거나 부모인 클래스가 들어가야하는데 
+   그렇게 되면 Toy myToy = box.get()에서 다형성 문제가 발생한다.
+
+7.아래와 같이 메소드 오버로딩이 되지 않는 이유는?
+// 다음 두 메소드는 오버로딩 인정 안됨.
+   public static void outBox(Box<? extends Toy> box) {...}
+   public static void outBox(Box<? extends Robot> box) {...}
+ - 컴파일 과정에서 함수안에 내용이 다 지워진다.
+
+8.아래의 결과가 나오도록 프로그래밍을 완성하시오.
+public static void main(String[] args) {
+        Box<Integer> box1 = new Box<>();
+        box1.set(24);
+
+        Box<String> box2 = new Box<>();
+        box2.set("Poly");
+
+        if(compBox(box1, 25))
+            System.out.println("상자 안에 25 저장");
+
+        if(compBox(box2, "Moly"))
+            System.out.println("상자 안에 Moly 저장");
+        
+        System.out.println(box1.get());
+        System.out.println(box2.get());
+}
+
+=======
+24
+Poly
+
+public class Box<T> {
+	private T ob;
+
+	public void set(T o) {
+		ob = o;
+	}
+
+	public T get() {
+		return ob;
+	}
+}
+
+public static <T> boolean compBox(Box<T> a, T b) {
+	T check = a.get();
+
+	return check.equals(b);
+}
+
+9.콜렉션 프레임워크란?
+ - 콜렉션 프레임워크란 다수의 데이터를 쉽고 효과적으로 처리할 수 있는 표준화된 방법을 
+   제공하는 클래스의 집합을 의미합니다
+ 
