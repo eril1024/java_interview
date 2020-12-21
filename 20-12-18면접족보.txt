@@ -1,0 +1,228 @@
+﻿1.BigInteger 클래스에 대하여 설명하시오.
+ -long으로 표현 가능한 수 이상의 수를 표현하기 위한 클래스이다.
+
+2.아래의 결과 값은 false 출력이 된다.true 가 되도록 INum을짜시오.
+   
+      INum[] ar1 = new INum[3];
+      INum[] ar2 = new INum[3];
+      ar1[0] = new INum(1); ar2[0] = new INum(1);
+      ar1[1] = new INum(2); ar2[1] = new INum(2);
+      ar1[2] = new INum(3); ar2[2] = new INum(3);
+      System.out.println(Arrays.equals(ar1, ar2));
+public class INum {
+	private int num;
+
+	public INum(int num) {
+		this.num = num;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this.num == ((INum) obj).num) {
+			return true;
+		}
+		return false;
+
+	}
+}
+
+3.아래에서 정렬이 이름순으로 되게끔 하시오.Person 객체를 만드시오.
+class ArrayObjSearch {
+    public static void main(String[] args) {
+        Person[] ar = new Person[3];
+
+        ar[0] = new Person("Lee", 29);
+        ar[1] = new Person("Goo", 15);
+        ar[2] = new Person("Soo", 37);
+
+        Arrays.sort(ar);
+
+public class Person implements Comparable {
+	private int age;
+	private String name;
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return name + ":" + age;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+
+		return this.name.compareToIgnoreCase(((Person) o).name);
+	}
+}
+4.위의 문제에서 사람의 이름 글자수가 많은순으로 정렬을 되게
+끔 person 객체를 만드시오.
+public class Person implements Comparable {
+	private int age;
+	private String name;
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return name + ":" + age;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+
+		return ((Person) o).name.length() - name.length();
+	}
+}
+  
+5.경과시간을 맞추는 게임을 작성하라. 다음 예시를 참고하면, <Enter> 키를 입력하면 현재 초 시간을 보여주고 여기서 10초에 더 근접하도록 다음 <Enter> 키를 입력한 사람이 이기는 게임이다.
+
+10초에 가까운 사람이 이기는 게임입니다.
+황기태 시작 키  >>
+	현재 초 시간 = 42
+10초 예상 후 키  >>
+	현재 초 시간 = 50
+이재문 시작 키  >>
+	현재 초 시간 = 51
+10초 예상 후 키  >>
+	현재 초 시간 = 4
+황기태의 결과 8, 이재문의 결과 13, 승자는 황기태
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+public class TimeGame {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		SimpleDateFormat format1 = new SimpleDateFormat("s");
+
+		int time1;
+		int time2;
+		Gamer[] g1 = { new Gamer("황기태"), new Gamer("이재문") };
+
+		System.out.println("10초에 가까운 사람이 이기는 게임입니다.");
+		for (int i = 0; i < 2; i++) {
+			System.out.print(g1[i] + " 시작 키 >>");
+			sc.nextLine();
+			time1 = Integer.valueOf(format1.format(System.currentTimeMillis()));
+			System.out.println("현재 초 시간 = " + time1 + "\n");
+			System.out.print("10초 예상 후 키 >>");
+			sc.nextLine();
+			time2 = Integer.valueOf(format1.format(System.currentTimeMillis()));
+			System.out.println("현재 초 시간 = " + time2 + "\n");
+			g1[i].time = time2 - time1;
+
+		}
+		if (10 - g1[0].time > 10 - g1[1].time) {
+			System.out.printf("%s의 결과는 %d, %s의 결과는 %d, 승자는 %s", g1[0].name, g1[0].time, g1[1].name, g1[1].time,
+					g1[1].name);
+		} else
+			System.out.printf("%s의 결과는 %d, %s의 결과는 %d, 승자는 %s", g1[0].name, g1[0].time, g1[1].name, g1[1].time,
+					g1[0].name);
+
+	}
+}
+
+class Gamer {
+	public int time;
+	public String name;
+
+	public Gamer(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+}
+
+7.제네릭이란?
+ - 다양한 종류의 데이터를 처리하기 위해 만든 클래스이다.
+ - 기본적인 형태
+   class Box<T> {
+   private T data;
+   public void set(T data) {
+      this.data = data;
+   }
+   public T get() {
+      return data;
+   }
+}
+
+8. 아래를 프로그래밍 하시오.
+Rectangle r1 = new Rectangle(5,6);
+Rectangle r2 = new Rectangle(7,9);
+
+Rectangle r3 = Rectangle.compareRect(r1,r2);
+
+System.out.println(r3.getHeight() + " : " + r3.getWidth()  + "입니다.");
+=============================
+출력 : 9 : 7 입니다.
+public class Rectangle {
+	private int width;
+	private int height;
+
+	public Rectangle(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public static Rectangle compareRect(Rectangle r1, Rectangle r2) {
+		if (r1.width * r1.height > r2.width * r2.height)
+			return r1;
+
+		else
+			return r2;
+
+	}
+
+}
+9. 아래를 프로그래밍 하시오.
+ - Rectangle 배열 4개를 만든후 스캐너 객체로 가로와 세로를 입력하여 4개의 객체를 배열에 할당한다 
+-  getSortingRec 사각형 배열을 내림차순 정렬한다.
+-정렬이 제대로 되었는지 배열에 저장된 객체의 getArea()함수를 순서대로 호출한다.
+
+Rectangle[] rec = new Rectangle[3];
+........
+Rectangle[] recSorting = Rectangle.getSortingRec(rec) 
+......
+import java.util.Arrays;
+
+public class Rectangle implements Comparable {
+	private int width;
+	private int height;
+
+	public Rectangle(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	public int getArea() {
+		return width * height;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+
+		return ((Rectangle) o).getArea() - this.getArea();
+	}
+
+	public static Rectangle[] getSortingRec(Rectangle[] rec) {
+		Arrays.sort(rec);
+		return rec;
+	}
+}
