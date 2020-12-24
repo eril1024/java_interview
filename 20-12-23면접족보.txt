@@ -1,0 +1,437 @@
+﻿1."그만"이 입력될 때까지 나라 이름과 인구를 입력받아 저장하고, 다시 나라 이름을 입력받아 인구를 출력하는 프로그램을 작성하라. 다음 해시맵을 이용하라.
+
+나라 이름과 인구를 입력하세요.(예: Korea 5000)
+
+나라 이름, 인구 >> Korea 5000
+
+나라 이름, 인구 >> USA 1000000
+
+나라 이름, 인구 >> Swiss 2000
+
+나라 이름, 인구 >> France 3000
+
+나라 이름, 인구 >> 그만
+
+인구 검색 >> France
+
+France의 인구는 3000
+
+인구 검색 >> 스위스
+
+스위스 나라는 없습니다.
+
+인구 검색 >> 그만
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class National {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String nation;
+		int popultion;
+		String search;
+		HashMap<String, Integer> nations = new HashMap<>();
+		while (true) {
+			System.out.print("나라 이름, 인구 >> ");
+
+			nation = sc.next();
+			if (nation.equals("그만")) {
+				break;
+			}
+			popultion = sc.nextInt();
+
+			nations.put(nation, popultion);
+		}
+
+		while (true) {
+			System.out.print("인구 검색 >>");
+			search = sc.next();
+			if (search.equals("그만")) {
+				System.out.println("프로그램을 종료합니다.");
+				break;
+			}
+
+			if (nations.containsKey(search)) {
+				System.out.println(search + "의 인구는 " + nations.get(search));
+			} else
+				System.out.println(search + " 나라는 없습니다.");
+
+		}
+
+	}
+}
+
+2.하나의 학생 정보를 나타내는 Student 클래스에는 이름, 학과, 학번, 학점 평균을 저장하는 필드가 있다.
+
+(1) 학생마다 Student 객체를 생성하고 4명의 학생 정보를 ArrayList<Student> 컬렉션에 저장한 후에, ArrayList<Student>의 모든 학생(4명) 정보를 출력하고 학생 이름을 입력받아 해당 학생의 학점 평균을 출력하는 프로그램을 작성하라.
+		
+
+>> 황기태, 모바일, 1, 4.1
+
+>> 이재문, 안드로이드, 2, 3.9
+
+>> 김남윤, 웹공학, 3, 3.5
+
+>> 최찬미, 빅데이터, 4, 4.25
+
+----------------------------------
+
+이름: 황기태
+
+학과: 모바일
+
+학번: 1
+
+학점평균: 4.1
+
+----------------------------------
+
+이름: 이재문
+
+학과: 안드로이드
+
+학번: 2
+
+학점평균: 3.9
+
+----------------------------------
+
+이름: 김남윤
+
+학과: 웹공학
+
+학번: 3
+
+학점평균: 3.5
+
+----------------------------------
+
+이름: 최찬미
+
+학과: 빅데이터
+
+학번: 4
+
+학점평균: 4.25
+
+----------------------------------
+
+학생 이름 >> 최찬미
+
+최찬미, 빅데이터, 4, 4.25
+
+학생 이름 >> 이재문
+
+이재문, 안드로이드, 2, 3.9
+
+학생 이름 >> 그만
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class StudentTest {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		List<Student> s1 = new ArrayList<>();
+		String search1;
+
+		System.out.println("학생 이름, 학과, 학번, 학점평균 입력하세요.");
+		for (int i = 0; i < 4; i++) {
+			System.out.println(">> ");
+			s1.add(new Student(sc.next(), sc.next(), sc.nextInt(), sc.nextDouble()));
+		}
+
+		for (Student a : s1) {
+			System.out.println("---------------------");
+			System.out.println("이름 : " + a.getName());
+			System.out.println("학과 : " + a.getMajor());
+			System.out.println("학번 : " + a.getStudentNum());
+			System.out.println("학점평균 : " + a.getScoreAvg());
+		}
+		StudentComp comp = new StudentComp();
+		Collections.sort(s1, comp);
+		while (true) {
+			System.out.print("학생 이름 >> ");
+			search1 = sc.next();
+			if (search1.equals("그만")) {
+				System.out.println("프로그램을 종료합니다.");
+				break;
+			}
+
+			Student search = new Student(search1, "0", 0, 0);
+			if (s1.contains(search)) {
+				int a = Collections.binarySearch(s1, search, comp);
+				System.out.println(s1.get(a).getName() + ", " + s1.get(a).getMajor() + ", " + s1.get(a).getStudentNum()
+						+ ", " + s1.get(a).getScoreAvg());
+			} else
+				System.out.println("그럼 이름은 없습니다.");
+		}
+	}
+}
+
+class StudentComp implements Comparator<Student> {
+
+	@Override
+	public int compare(Student o1, Student o2) {
+
+		return o1.getName().compareTo(o2.getName());
+	}
+
+}
+
+class Student implements Comparable<Student> {
+	private String name;
+	private String major;
+	private int studentNum;
+	private double ScoreAvg;
+
+	public Student(String name, String major, int studentNum, double scoreAvg) {
+		this.name = name;
+		this.major = major;
+		this.studentNum = studentNum;
+		ScoreAvg = scoreAvg;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public int getStudentNum() {
+		return studentNum;
+	}
+
+	public double getScoreAvg() {
+		return ScoreAvg;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (name.equals(((Student) obj).name)) {
+			return true;
+		} else
+			return false;
+	}
+
+	@Override
+	public int compareTo(Student o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
+
+3.ArrayList<Student> 대신, HashMap<String, Studnet> 해시맵을 이용하여 다시 작성하라. 해시맵에서 키는 학생 이름으로 한다.
+
+
+4.도시 이름, 위도, 경도 정보를 가진 Location 클래스를 작성하고, 도시 이름을 '키'로 하는 HashMap<String, Location> 컬렉션을 만들고, 사용자로부터 입력 받아 4개의 도시를 저장하라. 그리고 도시 이름으로 검색하는 프로그램을 작성하라.
+
+도시, 경도, 위도를 입력하세요.
+
+>> 서울, 37, 126
+
+>> LA, 34, -118
+
+>> 파리, 2, 48
+
+>> 시드니, 151, -33
+
+----------------------------------
+
+서울 37 126
+
+LA 34 -118
+
+파리 2 48
+
+시드니 151 -33
+
+----------------------------------
+
+도시 이름 >> 피리
+
+피리는 없습니다.
+
+도시 이름 >> 파리
+
+파리 2 48
+
+도시 이름 >> 그만
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Map.Entry;
+
+public class Tets {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Map<String, Location> city = new HashMap<String, Location>();
+		System.out.println("도시, 경도, 위도를 입력하세요.");
+		for (int i = 0; i < 4; i++) {
+			System.out.print(">> ");
+			String input = sc.nextLine();
+			String[] ar = input.split(", ");
+			city.put(ar[0], new Location(ar[0], ar[1], ar[2]));
+		}
+		System.out.println("-------------------");
+		for (Location i : city.values()) {
+			System.out.println(i);
+		}
+		System.out.println("---------------------");
+		while (true) {
+			System.out.print("도시 이름 >> ");
+			String cityName = sc.next();
+
+			if (city.containsKey(cityName)) {
+				System.out.println(city.get(cityName));
+			} else if (cityName.equals("그만")) {
+				System.out.println("프로그램을 종료합니다.");
+				break;
+			} else
+				System.out.println(cityName + "는 없습니다.");
+		}
+
+	}
+}
+
+class Location {
+	private String cityName;
+	private String hardness;
+	private String latitude;
+
+	public Location(String cityName, String hardness, String latitude) {
+		this.cityName = cityName;
+		this.hardness = hardness;
+		this.latitude = latitude;
+	}
+
+	@Override
+	public String toString() {
+		return cityName + " " + hardness + " " + latitude;
+	}
+}
+
+5.이름과 학점(4.5만점)을 5개 입력받아 해시맵에 저장하고, 장학생 선발 기준을 입력 받아 장학생 명단을 출력하라.
+
+미래장학금관리시스템입니다.
+
+이름과 학점 >> 적당히 3.1
+
+이름과 학점 >> 나탈락 2.4
+
+이름과 학점 >> 최고조 4.3
+
+이름과 학점 >> 상당히 3.9
+
+이름과 학점 >> 고득점 4.0
+
+장학생 선발 학점 기준 입력 >> 3.2
+
+장학생 명단 : 최고조 상당히 고득점 
+
+[Hint] HashMap의 전체 요소를 검색하여 학점이 3.2 이상인 학생을 알아내야 한다.
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Money {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		HashMap<String, Double> stu1 = new HashMap<>();
+		Double search;
+
+		for (int i = 0; i < 5; i++) {
+			System.out.print("이름과 학점 >> ");
+			stu1.put(sc.next(), sc.nextDouble());
+		}
+		System.out.print("장학생 선발 학점 기준 입력 >> ");
+		search = sc.nextDouble();
+
+		Set key = stu1.keySet();
+		List<String> win = new ArrayList<>();
+		for (Iterator itr = key.iterator(); itr.hasNext();) {
+			String name = (String) itr.next();
+			Double score = (Double) stu1.get(name);
+			if (score >= search) {
+				win.add(name);
+			}
+		}
+		System.out.println("장학생 명단 : " + win);
+	}
+}
+
+6.큐와 스택에 대하여 설명하시오.(필수)
+ - 스택은 LIFO(Last In First Out)구조로 나중에 넣은 것을 가장 먼저 꺼내는 구조이다.
+ - 큐는 FIFO(First In First Out)구조로 먼저 넣은 것을 먼저 꺼내는 구조이다.
+
+7.Map 에 대하여 설명하시오.
+ - Map은 키와 값으로 구성된 컬렉션이다
+ - 키는 중복될 수 없고 값은 중복 될 수 있다.
+ - HaspMap은 순서를 유지하지않고 TreeMap은 순서를 유지한다.
+
+8.아래의 TreeMap의 Value를 확인 하기 위한 소스를 짜시오.(필수)
+   TreeMap<Integer, String> map = new TreeMap<>();
+   map.put(45, "Brown");
+   map.put(37, "James");
+   map.put(23, "Martin");
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeMap;
+
+public class Tree {
+	public static void main(String[] args) {
+		TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+		map.put(45, "Brown");
+		map.put(37, "James");
+		map.put(23, "Martin");
+		Set key = map.keySet();
+		for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+			int keyValue = (int) iterator.next();
+			String value = (String) map.get(keyValue);
+			
+			System.out.println(keyValue + " : " + value);
+		}
+	}
+}
+
+9. 아래의 IntegerComparator를 내림차순 정렬이 되게끔 구현하시오.
+class ComparatorIntegerDemo {
+    public static void main(String[] args) {
+        TreeSet<Integer> tr = new TreeSet<>(new IntegerComparator());
+        tr.add(30);
+        tr.add(10);    
+        tr.add(20);        
+        System.out.println(tr);	
+    }
+}
+
+class IntegerComparator implements Comparator<Integer> {
+
+	@Override
+	public int compare(Integer o1, Integer o2) {
+
+		return o2 - o1;
+	}
+
+}
+
+10.Objects.hash의 용도와 사용법은?
+ - Hash는 데이터의 삽입과 삭제시 데이터의 불필요한 이동을 막기위해 각 데이터만의 고유한 위치를
+   주는 것이다.
+ - 각 데이터별 고유한 숫자를 만들어 인덱스로 사용한다.
