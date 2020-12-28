@@ -1,0 +1,133 @@
+﻿1.html 이란 무엇인가?
+ - 1980년대 후반 인터넷의 아버지라고 불리는 팀 버너스 리가 만든 것이다.
+ - Hyper Text Markup Language의 약자로서 웹문서를 기술하는 언어이다.
+ - 웹문서를 표현하기 위해 태그들로 구성되어 있다.
+
+2.css 란 무엇인가?
+ - Cascading Style Sheets의 약자로 html문서를 디자인적으로 예쁘게 만들어 정보 전달을 좀 더
+   효율적으로 하기 위해 만들어진 문서 입니다.
+ - Html은 정보를 가지고 있고, CSS는 화면상의 레이아웃등을 컨트롤하는 문서라고 생각하면 편하다.
+
+3.아래의 태그에 대하여 설명하시오.
+<del> - 삭제된 텍스트를 표시하기 위한 태그로 텍스트의 가운데에 줄이 그어지면서 표현한다.
+<ins> - 추가된 텍스트를 표시하기 위한 태그로 텍스트의 아래에 밑줄이 그어진다.
+<span> - 인라인 태그로 문단 중간에 들어가 영역을 설정하는 역할을 한다.
+
+4.block 태그와 non block 태그에 대하여 설명하시오.
+
+5.get 방식과 post 방식에 대하여 설명하시오.
+ - get방식은 url에 정보를 담아 전송하는 방식으로 보안에 취약하다.
+ - post방식은 정보 전송시 body에 포함되어 전송되기 때문에 보안에 강하다.
+
+6.컨텍스트 패스란 무엇인가?
+ - 다수의 was를 구분하기 위한 경로이다.
+
+7.아래의 객체에 대하여 설명하시오.
+HttpServletRequest - 사용자의 요청에 관한 데이터를 저장하는 객체
+HttpServletReponse - 사용자의 요청에 응답한 데이터를 저장하는 객체
+
+문제1
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Quiz1</title>
+<h1>제주 이색 여행지</h1>
+</head>
+<body>
+<h2>야외 텐트를 닮은 건축물 "테쉬폰"</h2>
+<p>
+아일랜드 출신 임피제 신부가 1954년 제주에 오면서 목장 숙소로 짓기 시작한 후 사료공장,
+성당으로 활용됐습니다.
+</p>
+<p>
+
+문제2
+HttpServletRequest - 사용자의 요청에 관한 데이터를 저장하는 객체
+HttpServletReponse - 사용자의 요청에 응답한 데이터를 저장하는 객체
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Quiz1</title>
+<h1>제주 이색 여행지</h1>
+</head>
+<body>
+<h2>야외 텐트를 닮은 건축물 "테쉬폰"</h2>
+<p>
+아일랜드 출신 임피제 신부가 1954년 제주에 오면서 목장 숙소로 짓기 시작한 후 사료공장,
+성당으로 활용됐습니다.
+</p>
+<p>
+
+문제3
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Quiz3</title>
+</head>
+<body>
+<h2>야외 텐트를 닮은 건축물 <mark>"테쉬폰"</mark></h2>
+
+아일랜드 출신 임피제 신부가 1954년 제주에 오면서 목장 숙소로 짓기 시작한 후 사료공장,
+성당으로 활용됐습니다. 제주에서 점차 다른 지방으로 보급됐지만 현재 제주에만 건축물이
+남아있으며, <span style="color:blue">국내 근현대 건축사의 한 페이지를 보여주는 가치를 지닌다</span>고 전문가들은 평가합니다.
+
+</body>
+</html>
+
+문제4
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<h1>1박 2일 가족 여행 코스</h1>
+</head>
+<body>
+	<ul>
+		<li>1일차</li>
+		<ol type="a">
+			<li>해녀박물관</li>
+			<li>낚시체험</li>
+		</ol>
+		<li>2일차</li>
+		<ol start="c">
+			<li>용눈이오름</li>
+			<li>만장굴</li>
+			<li>카약체험</li>
+		</ol>
+	</ul>
+</body>
+</html>
+
+문제5
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td align="center" width="70" height="40">이름</td>
+			<td width="140" height="40"></td>
+			<td align="center" width="70" height="40">연락처</td>
+			<td width="140" height="40"></td>
+		</tr>
+		<tr>
+			<td align="center" width="70" height="40">주소</td>
+			<td colspan="6"></td>
+		</tr>
+		<tr>
+			<td align="center" width="70" height="50">자기<br>소개
+			</td>
+			<td colspan="4"></td>
+		</tr>
+
+	</table>
+
+</body>
+</html>
