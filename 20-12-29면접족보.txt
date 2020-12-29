@@ -1,0 +1,204 @@
+1.선택자란?
+ - 특정 태그를 선택하여, 해당 태그의 속성을 변경 하는 목적으로 사용된다.
+ - <head>태그안 <style>태그 안에 원한는 태그를 작성 후 {}안에 변경하려는 속성을 적으면된다.
+ - *선택자는 문서 전체의 속성을 바꾸는 것이다.
+ - 전체와 특정 태그를 혼합해서 쓸시 특정태그를 고치면 특정태그에서는 전체가 아닌 특적이 적용된다.
+
+2.CSS 문법은?
+ - Cascading Style Sheet의 약자로 웹 문서의 디자인을 정하는 언어입니다.
+
+3.시멘틱 태그에 대하여 설명하고,그 종류는?
+ - 시멘틱 태그란 div에 의미를 더한 것으로 div와 기능은 같지만 의미만 추가해서 쉽게 구분할 수 있게
+   하기 위한 것이다.
+ - header, nav, section, footer등 이 있다.
+
+4.bootstrap 에 대하여 설명하시오.
+ - 웹사이트 화면을 쉽게 만들 수 있도록 도와주는 디자인 키트로 미리 만들어논 예쁜 디자인을 
+   가져와 사용하는 것이다.
+ - 프로트엔드 프레임워크라고도 부른다.
+
+5.overfolw 에 대하여 설명하시오.
+ - 자식 요소가 부모 요소의 범위를 벗어났을 때, 어떻게 처리할 것인지를 지정하는 속성이다.
+ - 속성으로는 hidden, scroll, auto가 있으며
+   scroll은 부모 영역을 벗어나는 부분을 스크롤로 볼 수 있게 한다.
+   hidden은 부모 영역을 벗어나는 부분을 보이지 않게 한다.
+   auto는 자동으로 스크롤바가 나타난다.
+
+6.class 와 id 선택자의 차이와 어떨때 사용하는가?
+ - id는 특정한 하나의 태그에만 사용할 때 쓰는 것이고 
+   class 여러 태그에 사용가능하다.
+
+7.servlet의 생명주기에 대하여 설명하시오.
+ - servlet의 최초 한번 객체가 생성되고 init()가 호출된 후 객체를 재사용해 
+   service(), doGet(), doPost()함수를 호출하기 때문에 속도가 빠르다.
+ - servlet수정,서버 재가동등의 이유로 객체를 제거할 때 만 destroy()함수가 호출된다.
+
+문제1
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+#header {
+	width: 500px;
+	background-color: #ffd800;
+	border: 1px solid #808080;
+	text-align: center;
+}
+
+#wrap {
+	width: 500px;
+	background-color: #66dbf6;
+	border: 2px solid #808080;
+	text-align: center;
+	overflow: hidden;
+}
+
+#content {
+	width: 350px;
+	border: 1px solid red;
+	float: left;
+}
+
+#side_banner {
+	border: 1px solid red;
+	float: left;
+}
+
+#footer {
+	clear: both;
+	width: 500px;
+	background-color: #ffd800;
+	border: 3px solid #808080;
+	text-align: center;
+}
+
+.menu1 {
+	color: #1822e2;
+	font-weight: bold;
+}
+
+.menu1, .menu3, .menu5 {
+	font-size: 20px;
+}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<h1>HEADER</h1>
+		</header>
+		<nav id="content">
+			<h1>CONTENT</h1>
+			<ul>
+				<li class="menu1">menu1</li>
+				<li class="menu2">menu2</li>
+				<li class="menu3">menu3</li>
+				<li class="menu4">menu4</li>
+				<li class="menu5">menu5</li>
+			</ul>
+		</nav>
+		<section id="side_banner">
+			<h1>BANNER</h1>
+			<a href="http://www.sba.seoul.kr"><img
+				src="http://www.sba.seoul.kr/kr/images/footer/f_logo.png"></a>
+		</section>
+		<footer id="footer"> 
+		<h1>FOOTER</h1>
+		</footer>
+	</div>
+</body>
+</html>
+
+문제2
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title></title>
+</head>
+<body>
+	<form action="FormEx" method="post">
+		이름 : <input type="text" name="name"> <br> 아이디 : <input
+			type="text" name="id"> <br> 비밀번호 : <input
+			type="password" name="pw"> <br> 취미 : <input
+			type="checkbox" name="hobby" value="read">독서 <input
+			type="checkbox" name="hobby" value="cook">요리 <input
+			type="checkbox" name="hobby" value="run" checked="checked">조깅
+		<input type="checkbox" name="hobby" value="swim" checked="checked">수영
+		<input type="checkbox" name="hobby" value="sleep" checked="checked">취침
+		<br> <input type="checkbox" name="major" value="kor">국어 <input
+			type="checkbox" name="major" value="eng" checked="checked">영어
+		<input type="checkbox" name="major" value="math">수학 <input
+			type="checkbox" name="major" value="design">디자인 <br> 
+		<select name="protocol">
+			<option>ftp</option>
+		</select> <br> <input type="submit" value="전송"> <input
+			type="reset" value="초기화">
+	</form>
+</body>
+</html>
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class FormEx
+ */
+@WebServlet("/FormEx")
+public class FormEx extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public FormEx() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("doGet");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("doPost");
+
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String[] hobby = request.getParameterValues("hobby");
+		String major = request.getParameter("major");
+		String protocol = request.getParameter("protocol");
+
+		response.setContentType("text/html; charset=EUC-KR");
+		PrintWriter writer = response.getWriter();
+
+		writer.println("<html><head></head><body>");
+		writer.println("아이디 : " + id + "<br />");
+		writer.println("비밀번호 : " + pw + "<br />");
+		writer.println("취미 : " + Arrays.toString(hobby) + "<br />");
+		writer.println("전공 : " + major + "<br />");
+		writer.println("프로토콜 : " + protocol);
+		writer.println("</body></html>");
+	}
+
+}
