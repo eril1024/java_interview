@@ -1,0 +1,309 @@
+1.jsp/servlet 에서  한글처리 방식은?
+ - Get방식
+   server.xml의 Connector에 URIEncoding="EUC-KR"을 넣어준다.
+ - Post방식
+   request.setCharacterEncoding("EUC-KR");을 넣어준다.
+
+2.아래의 선택자에 대하여 설명하시오.
+A > B : B가 A보다 한단계 아래의 태그일 경우 B를 선택 
+A + B : A태그 바로밑의 B태그만 선택한다.(부모-자손 관계만 가능)
+A ~ B : A태그 뒤에나오는 모든 B태그를 선택한다.(조상-자손 관계도 가능)
+ a[href="https://net.tutsplus.com"]
+
+3.웹어플리케이션 감시를 위한 프로그래밍 방법은?
+ - 
+
+4.데이터 공유를 위한 ServletContext와 서블릿 초기화 파라미터 ServletConfig에 대하여 설명하시오.
+ - 
+
+5.후손 선택자와 자식 선택자에 대하여 설명하시오.
+ - 두 선택자 모두 하위의 요소들을 선택하는 것은 같지만
+   자식의 경우에는 바로 아래 하나의 요소만 선택할 수 있고
+   후손의 경우에는 하위의 있는 것 모두 가능하다.
+
+문제1
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<form action="Gogodan" method="post">
+		출력한 구구단 단수 입력 : <input type="text" name="dan"><input
+			type="submit" value="실행">
+	</form>
+
+</body>
+</html>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("doPost");
+		request.setCharacterEncoding("EUC-KR");
+		int dan = Integer.valueOf(request.getParameter("dan"));
+
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter writer = response.getWriter();
+
+		writer.println("<html>");
+		writer.println("<head>");
+		writer.println("<style>");
+		writer.println("#form{width:150px;}");
+		writer.println("</style>");
+		writer.println("</head>");
+		writer.println("<body>");
+		writer.println("<table border=\"1\" width=\"150px\"");
+		writer.println("<tr><td align=\"center\">" + dan + "단" + "</td></tr>");
+		for (int i = 1; i < 10; i++) {
+			writer.println("<tr><td align=\"center\">" + dan + " * " + i + " = " + dan * i + "</td></tr>");
+		}
+		writer.println("</table>");
+		writer.println("<div id=\"form\" >");
+		writer.println("<form action=\"index.html\" align=\"center\">");
+		writer.println("<input type=\"submit\" value=\"돌아가기\">");
+		writer.println("</form>");
+		writer.println("</div>");
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+
+	}
+
+문제2
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="AreaCal" method="post">
+	가로 : <input type="text" name="width"><br>
+	세로 : <input type="text" name="height"><br>
+	<input type="submit" value="제출">
+</form>
+	
+</body>
+</html>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("doPost");
+		request.setCharacterEncoding("EUC-KR");
+		int width = Integer.valueOf(request.getParameter("width"));
+		int height = Integer.valueOf(request.getParameter("height"));
+
+		response.setContentType("text/html; charset=euc-kr");
+		PrintWriter writer = response.getWriter();
+		writer.println("<html>");
+		writer.println("<head>");
+		writer.println("</head>");
+		writer.println("<body>");
+		writer.println("넓이는 " + width * height);
+		writer.println("<form action=\"Area.html\" align=\"center\">");
+		writer.println("<input type=\"submit\" value=\"돌아가기\">");
+		writer.println("</form>");
+		writer.println("</div>");
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+	}
+
+문제3
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+header {
+	width: 1500px;
+	height: 150px;
+}
+
+#hleft {
+	background-color: #efefef;
+	border-radius: 30px 0 30px 0;
+	border: 1px solid #cccccc;
+	width: 150px;
+	height: 150px;
+	float: left;
+	margin-left: 450px;
+}
+
+#hcenter {
+	background-color: #efefef;
+	border-radius: 0 0 30px 30px;
+	border: 1px solid #cccccc;
+	width: 700px;
+	height: 150px;
+	float: left;
+}
+
+#hright {
+	background-color: #efefef;
+	border-radius: 0 30px 0 30px;
+	border: 1px solid #cccccc;
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+
+section {
+	width: 1500px;
+	height: 282px;
+}
+
+#sleft {
+	background-color: #efefef;
+	border-radius: 0 30px 30px 0;
+	border: 1px solid #cccccc;
+	width: 150px;
+	height: 300px;
+	float: left;
+	margin-left: 450px;
+}
+
+#scenter {
+	background-color: #efefef;
+	border-radius: 30px 30px 30px 30px;
+	border: 1px solid #cccccc;
+	width: 700px;
+	height: 300px;
+	float: left;
+}
+
+#sright {
+	background-color: #efefef;
+	border-radius: 30px 0 0 30px;
+	border: 1px solid #cccccc;
+	width: 150px;
+	height: 300px;
+	float: left;
+}
+
+footer {
+	width: 1500px;
+	height: 150px;
+}
+
+#fleft {
+	background-color: #efefef;
+	border-radius: 0 30px 0 30px;
+	border: 1px solid #cccccc;
+	width: 150px;
+	height: 150px;
+	float: left;
+	margin-left: 450px;
+}
+
+#fcenter {
+	background-color: #efefef;
+	border-radius: 30px 30px 0 0;
+	border: 1px solid #cccccc;
+	width: 700px;
+	height: 150px;
+	float: left;
+}
+
+#fright {
+	background-color: #efefef;
+	border-radius: 30px 0 30px 0;
+	border: 1px solid #cccccc;
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+
+li {
+	list-style: none;
+	float: left;
+	font-style: bold;
+}
+
+#title {
+	font-size: 30px;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div id="hleft"></div>
+		<div id="hcenter"></div>
+		<div id="hright"></div>
+	</header>
+	<section>
+		<div id="sleft"></div>
+		<div id="scenter">
+			<ul>
+				<li>menu1</li>
+				<li>menu2</li>
+				<li>menu3</li>
+				<li>menu4</li>
+				<br>
+			</ul>
+			<div id="title">하이서울브랜드</div>
+			<div>서울시와 서울산업진흥원(SBA)이 공동으로 지원하는 하이 서울브랜드 사업은 우수한 기술력과 상품력을
+				보유하고 있으나 고유브랜드 육성에 어려움을 겪고 있는 우수기업들이 서울시가 인정한 중소기업 공동브랜드인 하이서울브랜드를
+				활용하여 제품 경쟁력을 강화할 수 이도록 각종 홍보 마케팅을 지원하는 사업입니다.</div>
+		</div>
+		<div id="sright"></div>
+	</section>
+	<footer>
+		<div id="fleft"></div>
+		<div id="fcenter"></div>
+		<div id="fright"></div>
+	</footer>
+
+</body>
+</html>
+
+문제4
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="Star" method="post">
+		횟수 입력 : <input type="text" name="num"> <br>
+		<input type="submit" value="제출">
+	</form>
+</body>
+</html>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("doPost");
+		request.setCharacterEncoding("EUC-KR");
+		int num = Integer.valueOf(request.getParameter("num"));
+
+		response.setContentType("text/html;charset=euc-kr");
+		PrintWriter writer = response.getWriter();
+
+		writer.println("<html>");
+		writer.println("<head>");
+		writer.println("</head>");
+		writer.println("<body>");
+		for (int i = 0; i < num; i++) {
+			for (int j = 0; j < i+1; j++) {
+				writer.println("*");
+			}
+			writer.println("<br>");
+		}
+		writer.println("<form action=\"Star.html\" align=\"center\">");
+		writer.println("<input type=\"submit\" value=\"돌아가기\">");
+		writer.println("</form>");
+		writer.println("</div>");
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+	}
+
