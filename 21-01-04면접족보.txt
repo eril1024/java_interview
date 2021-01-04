@@ -1,0 +1,262 @@
+1.box-sizing 속성들에 대하여 설명하시오.
+ - box-sizing에는 Content-box와 border-box 두 가지 속성이 있다.
+   content-box속성은 border와padding 설정시 지정한 크기를 넘어서 설정된다
+   border-box는 설정한 크기를 넘어가 지 않으며 border와 padding이 안쪽에 설정된다. 
+   height가 200px이고 border가 5px padding이 5px일 경우 
+   content-box의 총height는 220px
+   border-box의 총height는 200px이다.
+
+2.margin 과 padding의 차이는?
+ - margin은 바깥쪽 여백
+   padding은 안쪽 여백을 뜻한다.
+
+3.내장객체에 대하여 설명하시오.
+ - jsp페이지에서 사용할 수 있도록 jsp컨테이너에 미리 정의된 객체이다.
+ - jsp페이지에 별도의 import 문 없이 자유롭게 사용 가능하다.
+ - 객체를 생성하지 않아도 직접 호출하여 사용가능하다.
+
+4.구구단을 세로로 나타내도록 jsp 로 짜시오.
+ - out.println 을쓰지 말고 <%= expression을 사용 하시오.
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<table border=1>
+	
+	<%
+	for(int i=1;i<=9;i++){
+		%><tr><%
+		for(int j=2;j<=9;j++){
+			%><td><%=j%>*<%=i%>=<%=i*j%> <% 
+		}
+	}
+	%>
+</table>
+	
+	
+</body>
+</html>
+
+5.redirect forward 의 차이는?
+ - redirect는 사용자가 요청하면 서버가 받아서 redircet주소를 보내준다. 그러면
+   사용자는 새로운 주소로 다시 요청을 본내고 서버는 요청에 응답한다.
+ - forward는 사용자의 요청을 받으면 서버 내에서 이동하며 사용자에게 응답한다.
+   사용자는 한번의 요청으로 서버의 응답을 받는 것이다.
+
+문제1
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title></title>
+<style>
+#nav {
+	width: 800px;
+	margin: 0 auto;
+	border: 1px solid #cccccc;
+	overflow: hidden
+}
+
+#nav div {
+	border: 1px;
+	width: 150px;
+	height: 100px; line-height : 100px; float : left; text-align : center;
+	font-size : 1.5em; border-top : 1px solid #cccccc; border-bottom : 1px
+	solid #cccccc;
+	margin: 5px;
+	line-height: 100px;
+	float: left;
+	text-align: center;
+	font-size: 1.5em;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+</style>
+
+</head>
+<body>
+	<div id="nav">
+		<div>menu1</div>
+		<div>menu2</div>
+		<div>menu3</div>
+		<div>menu4</div>
+		<div>menu5</div>
+	</div>
+</body>
+</html>
+
+문제2
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+div {
+	width: 800px;
+	margin: 0 auto;
+	overflow: hidden;
+	border: 1px solid #cccccc;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+div p:nth-child(1) {
+	text-decoration: underline;
+	font-size: 2.0em;
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+}
+
+div p:nth-child(2) {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+div p:nth-child(4) {
+	font-size: 1.2em;
+	text-align: right;
+}
+
+div p:nth-child(6) {
+	text-align: center;
+	font-size: 1.5em;
+	line-height: 50px;
+	height: 50px;
+}
+
+div p:nth-child(6) a {
+	text-decoration: none;
+}
+</style>
+
+
+</head>
+<body>
+	<div>
+		<p>HTML5, CSS3 Document</p>
+		<p>To.all member</p>
+		<p>html5, CSS5 study is very easy</p>
+		<p>Form.SBA</p>
+		<hr>
+		<p>
+			<a href="#">서울산업진흥원</a>
+		</p>
+	</div>
+</body>
+</html>
+
+문제3
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title></title>
+<style>
+#nav {
+	width: 600px;
+	height: 350px;
+	border: 1px solid black;
+	padding: 5px;
+}
+
+#nav div {
+	width: 590px;
+	height: 40px;
+	border: 1px solid #cccccc;
+	margin: 2px;
+	line-height: 40px;
+	font-size: 1.5em;
+	color: green;
+	font-weight: bold;
+}
+
+img {
+	margin: 5px;
+}
+</style>
+</head>
+<body>
+	<div id="nav">
+		<div>세계 3대 미항</div>
+		<img
+			src="https://postfiles.pstatic.net/MjAyMDAxMjFfMjky/MDAxNTc5NTM2NjIyMzYy.PPHvUq0Xd0Fi0lbnwMYUoQNa2ehEN_pH8Aa9JWZ9rlUg.PLRHcMSr9xZYCNyE9dTsNXcvmtOfGZSNBM4d8ZR3jZsg.JPEG.hiioni/SE-9ce35629-6e63-45e3-8a50-92bd30d45fd8.jpg?type=w966"
+			width=400px height=150px>
+		<p>시드니(Sydney), 호주</p>
+		<p>리우데자네이루(Rio de Janeiro),브라질</p>
+		<p>나폴리(Naples), 이탈리아</p>
+	</div>
+</body>
+</html>
+
+문제4
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="requestparam.jsp" method="post">
+		이름 : <input type=text name=name><br> 아이디 : <input
+			type=text name=id><br> 비밀번호 : <input type="password"
+			name=pw><br> 취미 : <input type="checkbox" name=hobby
+			value="read">독서 <input type="checkbox" name=hobby
+			value="cook">요리 <input type="checkbox" name=hobby value="run">조깅
+		<input type="checkbox" name=hobby value="swim">수영 <input
+			type="checkbox" name=hobby value="sleep">취침<br>전공 : <input
+			type="radio" name="major" value="kor">국어 <input type="radio"
+			name="major" value="eng">영어 <input type="radio" name="major"
+			value="math">수학 <input type="radio" name="major"
+			value="design">디자인<br> <select name="protocol">
+			<option>ftp</option>
+			<option>http</option>
+			<option>ntp</option>
+		</select><br> <input type="submit" value="전송"> <input type="reset"
+			value="초기화">
+
+	</form>
+</body>
+</html>
+<%@page import="java.util.Arrays"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%!String name, id, pw, major, protocol;
+	String[] hobby;
+	%>
+	<%
+	request.setCharacterEncoding("euc-kr");
+		name = request.getParameter("name");
+	id = request.getParameter("id");
+	pw = request.getParameter("pw");
+	major = request.getParameter("major");
+	protocol = request.getParameter("protocol");
+	hobby = request.getParameterValues("hobby");
+	%>
+
+	이름 :
+	<%=name%><br> 아이디 :
+	<%=id%><br> 비밀번호 :
+	<%=pw%><br> 취미 :
+	<%=Arrays.toString(hobby)%><br> 전공 :
+	<%=major%><br> 프로토콜 :
+	<%=protocol%><br>
+</body>
+</html>
+
+
+
