@@ -1,0 +1,37 @@
+1.session 이란?
+ - 쿠키와 같이 서버에 접속한 클라이언트와의 관계를 유지하기 위한 것이다.
+ - 세션은 여러가지 곳에서 다양한 의미로 쓰이기 때문에 헷갈리면 안됌
+ - 세션은 쿠키처럼 객체를 생성할 필요가 없음
+ - 쿠키보다 보안성이 좋음
+
+2.DBMS의 의미와 종류는?
+ - 데이터베이스 관리시스템으로 정보를 데이터베이스 형태로 저장한 방대한 양의 정보를
+   체계적으로 관리하기 위해 사용하는 소프트웨어다.
+ - 종류로는 오라클, MYSQL, MariaDB, mongoDB등이 있다.
+
+3.session id 란?
+ - 최초 서버접속시 서버는 섹션id를 생성후 쿠키에 담아 각 클라이언트에게 전달한다.
+ - 서버에 요청시 클라이언트는 섹션id를 보내면 서버는 섹션id로 권한을 확인한다.
+ - 섹션id는 설정해 놓은 시간이 지나면 폐기된다.
+
+4.에러페이지 처리 방법 2가지를 설명하시오?
+ - page지시자를 이용한 처리 방법과 web.xml을 이용한 처리 방법이 있다.
+ - page지시자를 이용한 방법은 <%@ page errorPage="errorPage.jsp"%>를 해당 페이지에 적어주면
+   예외 발생시 자신이 만들어놓은 에러페이지로 forward방식을 통해 이동한다. 에러페이지에는
+  <%@ page isErroPage="true%>와 <%response.setStatus(200)%>을 적어주어 정상적인 페이지라는 것을 알려주어야한다.
+ - web.xml방법은 
+   <error-page>
+    <error-code>404</error-code>
+    <location>/error404.jsp</location>
+   </error-page>
+   <error-page>
+    <error-code>500</error-code>
+    <location>/error500.jsp</loaction>
+   </error-page>
+   이렇게 적어주면 해당코드의 에러가 발생시 원하는 에러페이지로 이동시킬수 있다.
+
+5.bean 이란?
+ - 반복적인 작업을 효율적으로 하기 위해 사용
+ - java언어의 데이터(속성)와 기능(메소드)로 이루어진 클래스
+ - 액션태그를 이용해 빈을 사용
+ - 액션 태그 : useBean, setProperty, getProperty
