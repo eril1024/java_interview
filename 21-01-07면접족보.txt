@@ -1,0 +1,250 @@
+1.아래를 SQL문으로 표기 하시오.
+-- 부서 번호(DEPTNO)가 20인 사원에 관한 정보만 출력
+SELECT * FROM emp WHERE deptno=20;
+--이름(ENAME)이 FORD인 사람의 사번(empno), 이름(ename), 급여(SAL)를 출력하는 쿼리문
+SELECT empno,ename,sal FROME emp WHERE ename='20';
+--1982년 1월 1일 이후에 입사한 사원을 출력하는 쿼리문
+SELECT * FROM emp WHERE hiredate>='1982/01/01';
+--job 이 manager 이고 10번 부서인 사원
+SELECT * FROM emp WHERE job='MANAGER' and deptno=10;
+--job 이 manager 이거나 10번 부서인 사원
+SELECT * FROM emp WHERE job='MANAGER' or deptno=10;
+--10번 부서가 아닌 사원
+SELECT * FROM emp WHERE deptno != 10;
+--급여가 2000~3000 사이의 사원을 검색하는 쿼리문
+SELECT * FROM emp WHERE sal between 2000 and 3000;
+--급여가 2000 미만이거나 3000 초과인 사원을 검색하는 쿼리문
+SELECT * FROM emp WHERE not sal between 2000 and 3000;
+--1987년에 입사한 사원을 출력하는 쿼리문
+SELECT * FROM emp WHERE hiredate between '1982/01/01' and '1982/12/31';
+--커미션(COMM)이 300 혹은 500 혹은 1400인 사원이 있는지 검색하는 쿼리문
+SELECT * FROM emp WHERE comm in(300,500,1400);
+--커미션(COMM)이 300 혹은 500 혹은 1400이 아닌 사원이 있는지 검색하는 쿼리문
+SELECT * FROM emp WHERE comm not in(300,500,1400);
+--이 F로 시작하는 사람을 찾는 쿼리문
+SELECT * FROM emp WHERE ename like 'F%';
+--위치 상관 없이 이름 중에 A가 들어있는 사람을 찾는 쿼리문
+SELECT * FROM emp WHERE ename like '%A%';
+--이름이 N으로 끝나는 사람을 찾는 쿼리문
+SELECT * FROM emp WHERE ename like '%N';
+--이름의 두 번째 글자가 A인 사원을 찾는 쿼리문
+SELECT * FROM emp WHERE ename like '_A%';
+--이름의 세 번째 글자가 A인 사원을 찾는 쿼리문
+SELECT * FROM emp WHERE ename like '__A%';
+--이름에 A를 포함하지 않는 사람만 검색하는 쿼리문
+SELECT * FROM emp WHERE ename not like '%A%';
+--사원들의 급여를 오름차순으로 정렬하는 쿼리문
+SELECT * FROM emp ORDER BY sal asc;
+--가장 최근에 입사한 사원부터 출력하는 쿼리문
+SELECT * FROM emp ORDER BY hiredate desc;
+--사원들이 소속되어 있는 부서의 번호를 출력하는 쿼리문
+SELECT DISTINCT deptno FROM emp;
+--아래와 같이 출력하시오.
+SELECT ename || ' is a ' || job FROM emp;
+
+SMITH is a CLERK
+ALLEN is a SALESMAN
+WARD is a SALESMAN
+JONES is a MANAGER
+MARTIN is a SALESMAN
+BLAKE is a MANAGER
+CLARK is a MANAGER
+KING is a PRESIDENT
+TURNER is a SALESMAN
+JAMES is a CLERK
+FORD is a ANALYST
+MILLER is a CLERK
+
+문제1
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<h1 font-weight=bold>가위바위보 게임</h1>
+	<img width=500px height=300px
+		src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA4MDVfMTQ4/MDAxNTY1MDEwNjMwNzY2.OTvO-74q9wPfgM7qa4G_rJJEWFRYRupvHPaJUxltMVEg.l2IP9GK2nGW9ms3ErbwO4ekgI0eq_kuBBHMfUgZUdHog.JPEG/externalFile.jpg?type=w740">
+	<form action="game.jsp" method=post>
+		<select name="num">
+			<option value="1">가위</option>
+			<option value="2">바위</option>
+			<option value="3">보</option>
+		</select> <input type="submit" value="제출">
+
+	</form>
+</body>
+</html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+#me {
+	width: 400px;
+	height: 250px;
+}
+
+#com {
+	width: 400px;
+	height: 250px;
+}
+
+img {
+	width: 200px;
+	height: 200px;
+}
+</style>
+</head>
+<body>
+	<jsp:useBean id="game" class="web0106.Game" scope="page" />
+	<jsp:setProperty property="num" name="game" />
+	<%
+		if (game.getNum() == 1) {
+	%>
+	<div id=me>
+		<p>당신이 낸 것</p>
+		<img alt="가위"
+			src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjBfMjM1/MDAxNTY4OTcxNDIyMDc5.2o1LQZgbcDLaVXFc82Lf5NgCpgyqQDggOQ6cPco2pDcg.XwUolbqJ4s4OclsC0vzV9gNrLRYq5doG-B1mJygg7T8g.PNG/scissors.png?type=w800">
+		<%
+			} else if (game.getNum() == 2) {
+		%>
+		<p>당신이 낸 것</p>
+		<img alt="바위"
+			src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjBfNjQg/MDAxNTY4OTcxNDIzMTk4.Dm72KLro9TIoNxNP0UAFX1DVvuDf8qsWFoh_i9djs9cg.px1dhzZZ8j4Sva901dT28mv-5KjVd3PRIfF346g9uVYg.PNG/rock.png?type=w800">
+		<%
+			} else {
+		%>
+		<p>당신이 낸 것</p>
+		<img alt="보"
+			src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjBfMjMy/MDAxNTY4OTcxNDIyOTI3.GuFoHaSvE6urZmDrF9UF0lyc00o9EsImC3VAKpt9j-8g.d3DRPBQUtjDXbbGO3N0fhoR_drFrZZTuDGFjGWKVwNYg.PNG/paper.png?type=w800">
+		<%
+			}
+		%>
+	</div>
+	<div id=com>
+		<%
+			int comTurn = (int) (Math.random() * 3 + 1);
+		if (comTurn == 1) {
+		%>
+		<p>컴퓨터가 낸 것</p>
+		<img alt="가위"
+			src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjBfMjM1/MDAxNTY4OTcxNDIyMDc5.2o1LQZgbcDLaVXFc82Lf5NgCpgyqQDggOQ6cPco2pDcg.XwUolbqJ4s4OclsC0vzV9gNrLRYq5doG-B1mJygg7T8g.PNG/scissors.png?type=w800">
+		<%
+			} else if (comTurn == 2) {
+		%>
+		<p>컴퓨터가 낸 것</p>
+		<img alt="바위"
+			src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjBfNjQg/MDAxNTY4OTcxNDIzMTk4.Dm72KLro9TIoNxNP0UAFX1DVvuDf8qsWFoh_i9djs9cg.px1dhzZZ8j4Sva901dT28mv-5KjVd3PRIfF346g9uVYg.PNG/rock.png?type=w800">
+		<%
+			} else {
+		%>
+		<p>컴퓨터가 낸 것</p>
+		<img alt="보"
+			src="https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjBfMjMy/MDAxNTY4OTcxNDIyOTI3.GuFoHaSvE6urZmDrF9UF0lyc00o9EsImC3VAKpt9j-8g.d3DRPBQUtjDXbbGO3N0fhoR_drFrZZTuDGFjGWKVwNYg.PNG/paper.png?type=w800">
+		<%
+			}
+		if (game.getNum() == comTurn) {
+		%><p>무승부</p>
+		<%
+			} else if (game.getNum() == 1 && comTurn == 3) {
+		%><p>승리</p>
+		<%
+			} else if (game.getNum() == 2 && comTurn == 1) {
+		%><p>승리</p>
+		<%
+			} else if (game.getNum() == 3 && comTurn == 2) {
+		%><p>승리</p>
+		<%
+			} else {
+		%><p>패배</p>
+		<%
+			}
+		%>
+		<a href="start.html">다시하기</a>
+	</div>
+</body>
+</html>
+
+문제2
+<%@page import="web0106.Employee"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%!Connection connection;
+	Statement statement;
+	ResultSet resultSet;
+
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String uid = "scott";
+	String upw = "tiger";
+	String query = "select * from emp";%>
+<jsp:useBean id="employee" class="web0106.Employee" scope="page" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<table border=1>
+		<tr>
+			<td>EMPNO</td>
+			<td>ENAME</td>
+			<td>JOB</td>
+			<td>MGR</td>
+			<td>HIREDATE</td>
+			<td>SAL</td>
+			<td>COMM</td>
+			<td>DEPTNO</td>
+		</tr>
+		<%
+			try {
+			Class.forName(driver);
+			connection = DriverManager.getConnection(url, uid, upw);
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				employee.setEmpno(resultSet.getString("empno"));
+				employee.setEname(resultSet.getString("ename"));
+				employee.setJob(resultSet.getString("job"));
+				employee.setMgr(resultSet.getString("mgr"));
+				employee.setHiredate(resultSet.getString("hiredate"));
+				employee.setSal(resultSet.getString("sal"));
+				employee.setComm(resultSet.getString("comm"));
+				employee.setDeptno(resultSet.getString("deptno"));
+		%><tr>
+			<td><jsp:getProperty property="empno" name="employee"/></td>
+			<td><jsp:getProperty property="ename" name="employee"/></td>
+			<td><%=employee.getJob()%></td>
+			<td><%=employee.getMgr()%>
+			<td><%=employee.getHiredate()%></td>
+			<td><%=employee.getSal()%></td>
+			<td><%=employee.getComm()%></td>
+			<td><%=employee.getDeptno()%></td>
+		</tr>
+		<%
+			}
+		} catch (Exception e) {
+
+		} finally {
+		if (resultSet != null)
+		resultSet.close();
+		if (statement != null)
+		statement.close();
+		if (connection != null)
+		connection.close();
+		}
+		%>
+	</table>
+</body>
+</html>
