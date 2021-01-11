@@ -1,0 +1,201 @@
+1.el 이란 무엇인가?
+ - 표현식 또는 액션 태그를 대신해서 값을 표현하는 언어이다.
+ - ${ }형태로 표현한다.
+ - 
+2.jstl 문법에 대하여 설명하시오.
+ - jsp의 경우 html과 java문법이 섞여 있기 때문에 가독성이 떨어진다. 이름 보완하기 위해서 자주 사용하는
+   자바 문법을 태그로 만든 태그 라이브러리가 JSTL이다.
+ - TOMCAT에 포함되어 있지 않기 때문에 별도의 설치를 해야한다.
+
+3.scope 에 대하여 설명하시오.
+ - pageScope : 현재 페이지내에서 사용가능하다.
+ - sessionScope : session객체 시간이 유효할 떄 까지 사용가능하다.
+ - applicationScope : 서버가 종료되기 전까지 사용가능
+ - requestScope : 요청을 받고 응답전까지 사용가능
+
+4.join의 종류에 대하여 설명하시오 
+ - EQUI JOIN(등가 조인) : 두 테이블에서 공통적으로 존재하는 칼럼의 값이 일치되는 행을 연결하는 조인
+   SELECT * FROM emp,dept WHERE emp.deptno=dept.deptno;
+   SELECT emp.ename,dept.dname FROM emp,dept WHERE emp.deptno = dept.deptno AND emp.ename='KING';
+ - NON-EQUI JOIN(비등가 조인) : 동일 칼럼이 없이 다른 조건을 사용하여 조인 할 때 쓰임
+   SELECT ename,sal,grade,dname FROM EMP, salgrade,dept where (sal between losal and hisal) and (emp.deptno=dept.deptno);
+ - SELF JOIN : 자기 자신을 조인하는 것
+   SELECT e.empno, e.ename, e.mgr, d.ename FROM emp e, emp d WHERE e.mgr=d.empno;
+
+5.아래를 sql 문으로 처리 하시오.
+ *EMP테이블을 EMPLOTEE와 MANAGER로 별칭을 지정한 후 특정 사원의 매니저가 누구인지 알아내는 쿼리문
+  - SELECT * FROM EMP emplotee,EMP manager WHERE emplotee.mgr=manager.empno;
+ 
+ *사원 정보를 출력할 때, 각 사원이 소속된 부서의 상세 정보를 출력하기 위해 두 개의 테이블을 조인하는 쿼리문
+  - SELECT * FROM emp,dept WHERE emp.deptno=dept.deptno;
+
+ *부서의 최대값과 최소값을 구하되, 최대 급여가 2900 이상인 부서만 출력하는 쿼리문
+  - SELECT deptno, max(sal),min(sal) FROM emp GROUP BY deptno having max(sal)>=2900;
+
+ *부서별 사원의 수와 커미션을 받는 사원의 수를 계산하는 쿼리문
+  - SELECT deptno,count(*),count(comm) FROM emp GROUP BY deptno;
+
+ *소속 부서별 급여 총액과 평균 급여를 구하는 쿼리문
+  - SELECT deptno, sum(sal), avg(sal) FROM emp GROUP BY deptno;
+
+문제1
+학생VO
+public class Student {
+	private int studentNum;
+	private int java;
+	private int database;
+	private int jsp;
+	private double avg;
+
+	public int getStudentNum() {
+		return studentNum;
+	}
+
+	public void setStudentNum(int studentNum) {
+		this.studentNum = studentNum;
+	}
+
+	public int getJava() {
+		return java;
+	}
+
+	public void setJava(int java) {
+		this.java = java;
+	}
+
+	public int getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(int database) {
+		this.database = database;
+	}
+
+	public int getJsp() {
+		return jsp;
+	}
+
+	public void setJsp(int jsp) {
+		this.jsp = jsp;
+	}
+
+	public double getAvg() {
+		return (jsp + database + java) / 3;
+	}
+
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+}
+
+시작화면
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+header {
+	color: blue;
+	font-weight: bold;
+}
+table {
+	border-color: blue;
+}
+table td{
+	border-color: blue;
+	color: blue;
+}
+input {
+	border-color: white;
+}
+</style>
+</head>
+<body>
+	<header>성적입력</header><br>
+	<form action="home.jsp" method="post">
+		<table border=1>
+			<tr>
+				<td colspan="2">학번</td>
+				<td><input type="Text" name="studentNum" ></td>
+			</tr>
+			<tr>
+				<td rowspan="3">과목</td>
+				<td>Java</td>
+				<td><input type="Text" name="java">
+			</tr>
+			<tr>
+				<td>Database</td>
+				<td><input type="Text" name="database">
+			</tr>
+			<tr>
+				<td>JSP</td>
+				<td><input type="Text" name="jsp"></td>
+			</tr>
+			<tr>
+				<td colspan="4"><input type="submit" value="전송"></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>
+
+메인화면
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="student" class="web0111.Student" />
+<jsp:setProperty property="*" name="student" />
+<c:set var="studentNum" value="${student.getStudentNum()}"></c:set>
+<c:set var="java" value="${student.getJava()}"></c:set>
+<c:set var="database" value="${student.getDatabase()}"></c:set>
+<c:set var="jsp" value="${student.getJsp()}"></c:set>
+<c:set var="avg" value="${student.getAvg() }" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+#s1 {
+	color: red;
+	border-color: red;
+}
+</style>
+</head>
+<body>
+
+	<table border="1">
+		<tr>
+			<td colspan="2">학번</td>
+			<td>${studentNum}</td>
+		</tr>
+		<tr>
+			<td rowspan="3">과목</td>
+			<td>Java</td>
+			<td>${java }</td>
+		</tr>
+		<tr>
+			<td>Database</td>
+			<td>${database }</td>
+		</tr>
+		<tr>
+			<td>JSP</td>
+			<td>${jsp}</td>
+		</tr>
+		<tr>
+			<td colspan="2">평균점수</td>
+			<td id="s1" >${avg}</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<form action="input.html">
+					<input type="submit" value="입력화면">
+				</form>
+			</td>
+		</tr>
+
+	</table>
+</body>
+</html>
