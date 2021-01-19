@@ -1,0 +1,91 @@
+1.클로져란 무엇인가?
+ - 반환된 내부함수의 life-cycle이 종료될 때 까지 호출한 함수의 life-cycle을 유지하는 것이다.
+
+2.js를 이용하여, 구구단중 홀수단만 나오게 하시오.
+<script type="text/javascript">
+		for (var i = 2; i <= 9; i+=2) {
+
+			for (var j = 1; j <= 9; j++) {
+			
+				document.write(i + " * " + j + " = " + (i * j) + " ");
+				document.write("<br>")
+			}
+		}
+</script>
+
+3.부서별로 sal의 최소 값을 구하는데, 30번 부서의 sal 최소값 보다 큰것을 구하시오. 
+SELECT min(sal),deptno FROM emp group by deptno having min(sal)>(select min(sal) from emp group by deptno having deptno=30);
+
+4.삼각형및 사각형의 넓이를 구하는 프로그래밍을 IoC 컨테이너를 이용하여 프로그래밍 하시오.
+사각형
+public class Rectangle {
+	private double width;
+	private double height;
+
+	public void area() {
+		System.out.println("사각형의 넓이 : " + width * height);
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+}
+삼각형
+package com.java.ex;
+
+public class Triangle {
+	private double width;
+	private double height;
+
+	public void area() {
+		System.out.println("삼각형의 넓이 : " + width * height);
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+}
+
+메인
+package com.java.ex;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class Main {
+	public static void main(String[] args) {
+		String configLocation = "classpath:areaCTX.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+		Rectangle rectangle = ctx.getBean("rec", Rectangle.class);
+		rectangle.area();
+		Triangle triangle = ctx.getBean("tri", Triangle.class);
+		triangle.area();
+		ctx.close();
+	}
+
+}
