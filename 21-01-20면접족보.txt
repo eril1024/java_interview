@@ -1,0 +1,343 @@
+1.아래를 설명하시오.
+*DI(의존성 주입)
+ - 사용자가 직접 객체를 생성하지 않고 외부(IOC컨테이너)에서 생성된 객체를 주입받는 것이다.
+ - 스프링에서 객체 자체가 아닌 스프링 프레임워크에 의해 객체의 의존성이 주입되는 설계 패턴
+
+*IOC(제어 역전)
+ - 프로그램의 흐름을 개발자가 아닌 프레임워크가 가져간다는 뜻으로 프레임워크가 객체의 생성및 소멸 등 전반적인 것을 관리하는 것을 말한다.
+
+*IOC컨테이너
+ - 프로그램 시작시 메모리상에 올라가져 있어 설정된 정보를 바탕으로 빈을 관리하는 곳
+ - 빈을 구성하고 주입하는 역할을 한다.
+
+2.JS로 시간이 초단위로 갱신되는 페이지를 만드시오.
+document.write("1초마다 페이지가 갱신됩니다.")
+		var time = setInterval(function() {
+			location.reload();
+
+		}, 1000)
+
+3.js 에서의 객체생성 방법은?
+ - '{}를 이용해서 키와 속성으로 생성'
+   var 객체변수명 = {
+    key1 : value1,
+    key2 : value2,
+    key3 : value3
+   }
+ - 함수를 이용한 객체 생성
+   function 함수명(){
+          var 객체명 = {
+              
+	  };
+
+ 	   return 객체명;
+    };
+ - 생성자를 이용한 객체 생성
+   function 생성자 함수명(){
+            key1 = value1;
+            key2 = value2;
+   };
+   
+   new 생성자 함수명();
+
+4.아래를 자바 스크립트로 작성하시오.
+-변수 radius
+-get set 함수 작성
+-프롬프트로 숫자 입력값 받음
+-set 함수를 radius 값 세팅
+-객체 생성후 getArea() 함수 호출하면 원넓이 출력
+<script type="text/javascript">
+		function Circle() {
+			var radius;
+
+			this.getRadius = function() {
+				return this.radius;
+			};
+			this.setRadius = function(radius) {
+				if (!isNaN(radius)) {
+					this.radius = radius;
+				} else
+					console.log("radius is NaN(Not A Number)");
+			}
+			this.getArea = function() {
+				return this.radius * this.radius * 3.14;
+			}
+		}
+		var circle = new Circle;
+		circle.setRadius(4);
+		console.log("원의 넓이는 : " + circle.getArea());
+</script>
+
+5.위와 같은 방식으로 가위바위보 게임을 짜시오.
+
+-DOM 객체를 배우면 이미지도 바꿔 보도록 합시다.
+	<script type="text/javascript">
+		function Roc() {
+			var myTurn;
+			var comTurn;
+			this.setMyTurn = function(myTurn) {
+				if (!isNaN(myTurn))
+					this.myTurn = myTurn;
+				else
+					console.log("myTurn is NaN(Not A Number)");
+			}
+			this.setComTurn = function() {
+				this.comTurn = Math.floor((Math.random() * 3) + 1);
+			}
+			this.play = function() {
+				if (this.myTurn == this.comTurn)
+					document.write("비겼습니다.");
+				else if (this.myTurn == 1 && this.comTurn == 3)
+					document.write("당신이 이겼습니다.");
+				else if (this.myTurn == 2 && this.comTurn == 1)
+					document.write("당신이 이겼습니다.");
+				else if (this.myTurn == 3 && this.comTurn == 2)
+					document.write("당신이 이겼습니다.");
+				else {
+					document.write("당신이 졌습니다.");
+				}
+			}
+		}
+		var roc = new Roc();
+		var myTurn = prompt("가위(1)/바위(2)/보(3)번호를 입력해주세요!")
+		roc.setMyTurn(myTurn);
+		roc.setComTurn();
+		roc.play();
+	</script>
+
+6.annotation 방식으로 하여 객체 생성후 사각형과 삼각형 넓이를 구하시오.
+사각형
+public class Rectangle {
+	private double width;
+	private double height;
+
+	public Rectangle(double width, double height) {
+
+		this.width = width;
+		this.height = height;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public double getArea() {
+		return width * height;
+	}
+}
+삼각형
+public class Triangle {
+	private double width;
+	private double height;
+
+	public Triangle(double width, double height) {
+
+		this.width = width;
+		this.height = height;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public double getArea() {
+		return (width * height) / 2;
+	}
+}
+Config
+@Configuration
+public class Config {
+	@Bean
+	public Rectangle rec() {
+		Rectangle rec = new Rectangle(15, 4);
+		return rec;
+	}
+
+	@Bean
+	public Triangle tri() {
+		Triangle tri = new Triangle(14, 3);
+		return tri;
+	}
+}
+메인
+public class MainClass2 {
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Config.class);
+
+		Rectangle rec = ctx.getBean("rec", Rectangle.class);
+		System.out.println("사각형의 넓이 : " + rec.getArea());
+
+		Triangle tri = ctx.getBean("tri", Triangle.class);
+		System.out.println("삼각형의 넓이 : " + tri.getArea());
+	}
+}
+
+7.금일 배운 Pencil의 예처럼 아래를 인터 페이스를 구현하여, 원, 삼각형, 사각형의 넓이를 설정파일 에서 바꾸면 각각의 넓이가  구하여 지도록 하시오.
+
+interface IShape{
+	double getArea();
+}
+메인
+public class MainClass {
+	public static void main(String[] args) {
+		String configLocatioin = "classpath:applicationCTX.xml";
+
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocatioin);
+
+		IShape rec = ctx.getBean("rec", IShape.class);
+		System.out.println("사각형의 넓이는 : " + rec.getArea());
+		IShape circle = ctx.getBean("circle", IShape.class);
+		System.out.println("원의 넓이는 : " + circle.getArea());
+		IShape tri = ctx.getBean("tri", IShape.class);
+		System.out.println("삼각형의 넓이는 : " + tri.getArea());
+
+	}
+}
+삼각형
+package edu.bit.ex;
+
+public class Triangle implements IShape {
+	private double width;
+	private double height;
+
+	public Triangle(double width, double height) {
+
+		this.width = width;
+		this.height = height;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	@Override
+	public double getArea() {
+		return (width * height) / 2;
+	}
+}
+
+사각형
+package edu.bit.ex;
+
+public class Rectangle implements IShape {
+	private double width;
+	private double height;
+
+	public Rectangle(double width, double height) {
+
+		this.width = width;
+		this.height = height;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	@Override
+	public double getArea() {
+		return width * height;
+	}
+}
+
+원
+package edu.bit.ex;
+
+public class Circle implements IShape {
+	private double radius;
+
+	public Circle(double radius) {
+		this.radius = radius;
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public double getArea() {
+
+		return radius * radius * 3.14;
+	}
+}
+
+xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="rec" class="edu.bit.ex.Rectangle">
+		<constructor-arg>
+			<value>14</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>13</value>
+		</constructor-arg>
+	</bean>
+	<bean id="tri" class="edu.bit.ex.Triangle">
+		<constructor-arg>
+			<value>12</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>6</value>
+		</constructor-arg>
+	</bean>
+	<bean id="circle" class="edu.bit.ex.Circle">
+		<constructor-arg value="4" />
+	</bean>
+</beans>
+
+8.스프링 미리 공부 구현 해야될 내용-미리준비해 놓읍시다.(한마디로 외워 제낍시다).
+스프링 게시판(오라클 + 마이바티스),스프링 시큐리티, 소셜로그인(OAuth2)-카카오,네이버 먼저, 결재구현(아임포트)
