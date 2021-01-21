@@ -1,0 +1,91 @@
+1.게시판 replyShape 생성시 아래의 쿼리문에서
+bStep > ? 은 무슨 의미 인가?
+
+update mvc_board set bStep = bStep + 1 where bGroup = ? and bStep > ?
+ - 해당글에 달린 댓글의 갯수를 나타내는 것이다.
+ - 새 댓글 작성시 그 글이 1번이 되며 이전에 있던 글은 step이 한 칸씩 밀린다.
+
+2.sql 문제
+-17. 부서별 급여 평균을 출력하시오.
+SELECT avg(sal) from emp group by deptno;
+
+-18. 오늘은 몇요일인가? 
+SELECT to_char(sysdate, 'day') FROM dual; 
+
+-10. EMP Table에서 급여가 1800 이상이면 ‘good’, 아니면 ‘poor’를 출력하시오. 
+SELECT ename, sal, case when sal>=1800 then 'good' else 'poor' end FROM emp; 
+
+3.가위바위보 이미지 넣어서 짜시오.
+<script type="text/javascript">
+		var str = "";
+		function Roc() {
+			var sissor = "";
+			sissor += "<img src='http://isweb.joongbu.ac.kr/~jgm/photo/sissor.jpeg', width='170', height='67', tempData = 'logoImg'>";
+			var rock = "";
+			rock += "<img src='http://isweb.joongbu.ac.kr/~jgm/photo/rock.jpeg', width='170', height='67', tempData = 'logoImg'>";
+			var paper = "";
+			paper += "<img src='http://image.blog.livedoor.jp/deaiup/imgs/1/5/1506be2c.png', , width='170', height='67', tempData = 'logoImg'>";
+			var choice = [ sissor, rock, paper ];
+			var myTurn = 0;
+			var comTurn = 0;
+			this.setMyTurn = function(myTurn) {
+				if (!isNaN(myTurn)) {
+					this.myTurn = myTurn;
+				}
+
+				else
+					console.log("myTurn is NaN(Not A Number)");
+			}
+			this.setComTurn = function() {
+				this.comTurn = Math.floor((Math.random() * 3));
+			}
+			this.play = function() {
+				this.setComTurn();
+				if (this.myTurn == this.comTurn) {
+					str += "비겼습니다 <br>";
+					str += "내가 낸것 : <br>";
+					str += choice[this.myTurn] + "<br>";
+					str += "컴퓨터가 낸것 : <br>";
+					str += choice[this.comTurn];
+				}
+
+				else if (this.myTurn == 0 && this.comTurn == 2) {
+					str += "당신이 이겼습니다<br>";
+					str += "내가 낸것 : <br>";
+					str += choice[this.myTurn] + "<br>";
+					str += "컴퓨터가 낸것 :<br>";
+					str += choice[this.comTurn];
+				}
+
+				else if (this.myTurn == 1 && this.comTurn == 0) {
+					str += "당신이 이겼습니다<br>";
+					str += "내가 낸것 : <br>";
+					str += choice[this.myTurn] + "<br>";
+					str += "컴퓨터가 낸것 : <br>";
+					str += choice[this.comTurn];
+				}
+
+				else if (this.myTurn == 2 && this.comTurn == 1) {
+					str += "당신이 이겼습니다<br>";
+					str += "내가 낸것 : <br>";
+					str += choice[this.myTurn] + "<br>";
+					str += "컴퓨터가 낸것 : <br>";
+					str += choice[this.comTurn];
+				} else {
+					str += "당신이 졌습니다<br>";
+					str += "내가 낸것 : <br>";
+					str += choice[this.myTurn] + "<br>";
+					str += "컴퓨터가 낸것 :  <br>";
+					str += choice[this.comTurn];
+				}
+			}
+		}
+		var roc = new Roc();
+		var myTurn = prompt("가위(0)/바위(1)/보(2)번호를 입력해주세요!")
+		roc.setMyTurn(myTurn);
+
+		roc.play();
+		document.body.innerHTML = str
+	</script>
+
+4.Bom , 과 Dom 이란?
