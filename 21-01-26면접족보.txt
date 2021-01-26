@@ -1,0 +1,71 @@
+1. 아래의 xml에 대하여 설명하시오.
+
+@ pom.xml 
+
+   - 프로젝트 정보, 스프링 버전, 사용자 라이브러리 등 프로젝트와 프로젝트에서 사용하는 도구 등의 정보가 담겨있다.
+
+?
+
+@ web.xml
+
+  - 서블릿 배포 기술자라고 부르며 프로젝트 배포 시 그 프로젝트에 대한 설정 정보를 가지고 있는 파일이다.
+
+  - 모든 spring 프로젝트는 실행되기 전 web.xml을 먼저 거치며 web.xml에 저장된 설정대로 동작한다.
+
+?
+
+ @ -*-context.xml
+
+  - servlet-context.xml
+
+    웹과 관련된 설정을 담당
+
+?
+
+  - root-context.xm
+
+   jsp 쪽이 아닌 서버 쪽 설정을 담당
+
+?
+
+2. 스프링에서 게시판 사용을 위한 설계도를 그리시오.
+
+
+?
+
+3. 스프링에서 한글 처리는 어떻게 하는가?
+
+<filter>
+<filter-name>encodingFilter</filter-name>
+<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+
+<init-param>
+<param-name>encoding</param-name>
+<param-value>UTF-8</param-value>
+</init-param>
+</filter>
+
+<filter-mapping>
+<filter-name>encodingFilter</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+ - web.xml에 위의 코드를 입력해 주면 된다.
+
+ - utf-8로 한글 처리가 안될 시 euc-kr로 바꿔주면 된다.
+
+?
+
+4. Mybatis에 대하여 설명하시오.
+
+ - 프로젝트에서 관계형 데이터베이스의 사용을 더 쉽게 도와주는 프레임워크이다.
+
+ - 관계형 데이터베이스와 연결하기 위한 객체인 connection, Resultset, Statement의 사용을 줄여 주므로 써 코드가 간단해졌다.
+
+ - 자바 코드와 sql 쿼리를 서로 다른 곳에 배치함으로 관리가 더 쉬워졌다.
+
+?
+
+5. 스프링에서 hello.jsp가 유저에게 전달되기까지의 순서와 해당 객체를 그림으로 표현하시오.
+
+
+?
